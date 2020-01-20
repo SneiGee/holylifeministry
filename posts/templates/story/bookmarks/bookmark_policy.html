@@ -1,0 +1,13 @@
+{% load static %}
+<form method="post" action="{% url 'bookmarks_policy' %}" id="bookmarks_policy">
+    {% csrf_token %}
+    {% if is_favorite %}
+        <button type="submit" id="bookmarks" name="id" value="{{ policy.id }}" class="bookmarks">
+            <i class="fa fa-bookmark-o" data-toggle="tooltip" title="Remove story from bookmark" aria-hidden="true"></i>
+        </button>
+    {% else %}
+        <button type="submit" id="bookmarks" name="id" value="{{ policy.id }}">
+            <i class="fa fa-bookmark-o" data-toggle="tooltip" title="Bookmark story" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+</form>

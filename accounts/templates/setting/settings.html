@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {{ title }} - @{{ user.username }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content bg-white p-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>Account Setting!</h5>
+                    </div>
+
+                    <div class="user_setting">
+                        <div class="deactivate_user">
+                            <a href="#" class=""  data-toggle="modal" data-target="#TemporaryDeleteModal">Temporary Delete My Account</a>
+                            <a href="#" class="" data-toggle="modal" data-target="#PermanantDeleteModal">Permanant Delete My Account</a>
+                        </div>
+                        <br>
+                        <form method="post" id="" data-parsley-validate data-url="{{ request.build_absolute_url|safe }}" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+
+                            <button type="submit" class="btn mag-btn mt-30">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+
+<!-- Temporary Delete My Account Modal -->
+<div class="modal fade" id="TemporaryDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <!-- <div class="modal-header profile-modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Change Profile Photo
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <!-- <form method="post" action="" id="remove_photo" data-url="{{ request.build_absolute_url|safe }}"> -->
+                <div class="modal-body permanant_delete-modal">
+                    <p>
+                        Temporary Delete My Accounnt
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </p>
+                    <p>
+                        <span class="">
+                            <strong style="color: red;">Warning!</strong> you won't be able to login to your
+                            account again and won't be notify what going on in christianbase but Yes! your data is
+                            secure and kept safe. you can contact us to get your account back
+                        </span>
+                    </p>
+                    <p>
+                        <a href="{% url 'christianbase_user_feedback' user.username %}" class="feedback">
+                            Please tell us why you leaving!
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{% url 'christianbase_temporary_delete' user.username %}" class="temporary_delete">
+                            Yes! Temporary Delete My Account
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" data-dismiss="modal">
+                           Oh No! l change my mind!
+                        </a>
+                    </p>
+                </div>
+            <!-- </form> -->
+            <!-- <div class="modal-footer profile-modal-footer">
+                <a href="#" data-dismiss="modal">Close</a>
+            </div> -->
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+
+<!-- Permanant Delete My Account Modal -->
+<div class="modal fade" id="PermanantDeleteModal" tabindex="-1" role="dialog" aria-labelledby="PermanantDeleteModalTitle"
+  aria-hidden="true">
+
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+            <!-- <div class="modal-header profile-modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Change Profile Photo
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <!-- <form method="post" action="" id="remove_photo" data-url="{{ request.build_absolute_url|safe }}"> -->
+                <div class="modal-body permanant_delete-modal">
+                    <p>
+                        Permanant Delete My Accounnt
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </p>
+                    <p>
+                        <span class="">
+                            <strong style="color: red;">Warning! Warning!</strong> permanantly deleting your account will delete all
+                            your data, include your articles and your private data.
+                        </span>
+                    </p>
+                    <p>
+                        <a href="{% url 'christianbase_user_feedback' user.username %}" class="feedback">
+                            Please tell us why you leaving!
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{% url 'christianbase_permanant_delete' user.username %}" class="permanant_delete">
+                            Yes! Permanant Delete My Account!
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" data-dismiss="modal">
+                           Oh No! l change my mind!
+                        </a>
+                    </p>
+                </div>
+            <!-- </form> -->
+            <!-- <div class="modal-footer profile-modal-footer">
+                <a href="#" data-dismiss="modal">Close</a>
+            </div> -->
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+</script>
+{% endblock %}

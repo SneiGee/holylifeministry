@@ -1,0 +1,180 @@
+{% load static %}<!-- Navbar Area -->
+<div class="mag-main-menu" id="sticker">
+    <div class="classy-nav-container breakpoint-off">
+        <!-- Menu -->
+        <nav class="classy-navbar justify-content-between" id="magNav">
+
+            <!-- Nav brand -->
+            <a href="{% url 'home' %}" class="nav-brand"><img src="{% static 'images/logo_text1.jpg' %}" alt="Christianbase Logo"></a>
+            <a href="{% url 'home' %}" class="nav-brand2"><img src="{% static 'images/logo_icon1.png' %}" alt="Christianbase Logo"></a>
+
+            <!-- Navbar Toggler -->
+            <div class="classy-navbar-toggler">
+                <span class="navbarToggler"><span></span><span></span><span></span></span>
+            </div>
+
+            <!-- Nav Content -->
+            <div class="nav-content d-flex align-items-center">
+                <div class="classy-menu">
+
+                    <!-- Close Button -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <!-- <li><a href="archive.html">Scripture</a></li> -->
+                            <li><a href="{% url 'bible-studies' %}">Bible Studies</a></li>
+                            <li><a href="{% url 'devotion' %}">Devotion</a></li>
+                            <li><a href="{% url 'tech' %}">Tech</a></li>
+                            <li><a href="{% url 'quotes' %}">Quotes</a></li>
+                            <li><a href="#">More</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'request-prayer' %}">Prayer Request</a></li>
+                                </ul>
+                            </li>
+                            {% if user.is_authenticated %} <!-- if user is logged in  -->
+                                <li class="Account-P"><a href="#">Account</a>
+                                    <ul class="dropdown">
+                                        <!--  if user is author or admin  -->
+                                        {% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
+                                            <li><a href="{% url 'christianbase_new_story' %}">New Story / Article</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">Stories / Articles</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            <li><a href="{% url 'christianbase_add_category' %}">Topic / Category</a></li>
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">Bookmarks</a></li>
+                                            <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li>
+                                        {% else %}
+                                            {% if request.user.userrole_set.last.role == 'BS P' %}
+                                            <li><a href="{% url 'bible-studies-add' %}">New Bibles Studies</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Devotion P' %}
+                                            <li><a href="{% url 'devotion-add' %}">New Devotion</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Tech P' %}
+                                            <li><a href="{% url 'tech-add' %}">New Tech</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Quotes P' %}
+                                            <li><a href="{% url 'quotes-add' %}"> New Daily Quote</a></li>
+                                            {% else %}
+                                            <li><a href="{% url 'policy-add' %}"> New Story / Article</a></li>
+                                            {% endif %}
+                                            <li><a href="{% url 'christianbase_user_stories' %}">My Stories / Article</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            {% if request.user.userrole_set.last.role == 'Policy' %}
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}"> Bookmarks</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">Profile</a></li>
+                                        <li><a href="{% url 'password_change' user.username %}">Change password</a></li>
+                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">Setting</a></li>
+                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">Feedback</a></li>
+                                        <li><a href="{% url 'christian_logout' %}">Logout</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+
+                <div class="top-meta-data d-flex align-items-center">
+                    <!-- Top Search Area -->
+                    <div class="top-search-area">
+                        <form action="{% url 'search_stories' %}" method="get">
+                            <input type="search" name="query" id="id_query" placeholder="Search Holy Life Ministry...">
+                            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <!-- <span class=""><i class="fa fa-search" aria-hidden="true"></i></span> -->
+                        </form>
+
+                        <a href="{% url 'search_stories' %}" class="headersearch">
+                            <span class=""><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </a>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <!-- Account / Profile -->
+                        <div class="classynavPro">
+                            <ul>
+                                <li>
+                                    <a href="#" class="account-profile">
+                                        <img src="
+                                        {% if user.profile.image %}
+                                           {{ user.profile.image.url }}
+                                        {% else %}
+                                           /static/images/default.png
+                                        {% endif %}
+                                        " alt="{{ user.get_full_name }}">
+                                    </a>
+                                    <ul class="dropdown">
+                                        {% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
+                                            <li><a href="{% url 'christianbase_new_story' %}">New Story / Article</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">Stories / Articles</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            <li><a href="{% url 'christianbase_add_category' %}">Topic / Category</a></li>
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">Bookmarks</a></li>
+                                            <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li>
+                                        {% else %}
+                                            {% if request.user.userrole_set.last.role == 'BS P' %}
+                                                <li><a href="{% url 'bible-studies-add' %}">New Bibles Studies</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Devotion P' %}
+                                                <li><a href="{% url 'devotion-add' %}">New Devotion</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Tech P' %}
+                                                <li><a href="{% url 'tech-add' %}">New Tech</a></li>
+                                            {% elif request.user.userrole_set.last.role == 'Quotes P' %}
+                                                <li><a href="{% url 'quotes-add' %}"> New Daily Quote</a></li>
+                                            {% else %}
+                                                <li><a href="{% url 'policy-add' %}"> New Policy</a></li>
+                                            {% endif %}
+                                            <li><a href="{% url 'christianbase_user_stories' %}">My Stories / Article</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            {% if request.user.userrole_set.last.role == 'Policy' %}
+                                                <li><a href="{% url 'christianbase_user_bookmarks' %}"> Bookmarks</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">Profile</a></li>
+                                        <li><a href="{% url 'password_change' user.username %}">Change password</a></li>
+                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">Setting</a></li>
+                                        <!-- <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li> -->
+                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">Feedback</a></li>
+                                        <li><a href="{% url 'christian_logout' %}">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!--   end ul   -->
+                        </div>
+                        <a href="{% url 'christianbase_userprofile' user.username %}" class="account-profile AP"><i class="fa fa" aria-hidden="true"></i>
+                            <img src="
+                            {% if user.profile.image %}
+                                {{ user.profile.image.url }}
+                            {% else %}
+                               /static/images/default.png
+                            {% endif %}
+                            " alt="{{ user.get_full_name }}" width="50" height="50">
+                        </a>
+                        <!-- New Stories -->
+                        <a href="
+                            {% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
+                                {% url 'christianbase_new_story' %}
+                            {% elif request.user.userrole_set.last.role == 'BS P' %}
+                                {% url 'bible-studies-add' %}
+                            {% elif request.user.userrole_set.last.role == 'Devotion P' %}
+                                {% url 'devotion-add' %}
+                            {% elif request.user.userrole_set.last.role == 'Tech P' %}
+                                {% url 'tech-add' %}
+                            {% else %}
+                                {% url 'quotes-add' %}
+                            {% endif %}
+                            " class="submit-video"><span><i class="fa fa-edit"></i></span> <span class="video-text">
+                                New Stories
+                        </span></a>
+                    {% else %}
+                        <!-- Login -->
+                        <a href="{% url 'login' %}" class="login-btn"><i class="fa" aria-hidden="true"></i>Login</a>
+                        <a href="{% url 'create-account' %}" class="submit-video"><span><i class="fa fa-user-plus"></i></span> <span class="video-text">be a member</span></a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+

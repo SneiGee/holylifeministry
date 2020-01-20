@@ -1,0 +1,22 @@
+{% load static %}
+{% load filters %}
+
+<form action="{% url 'quotes_like_post' %}" method="post" id="quoteslike-section">
+    {% csrf_token %}
+    {% if is_liked %}
+        <button type="submit" id="quotes_likes" name="id" value="{{ quotes.id }}" class="liked">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        </button>
+    {% else %}
+        <button type="submit" id="quotes_likes" name="id" value="{{ quotes.id }}">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+    {% if quotes.total_likes %}
+        <a href="#" class="total" data-toggle="modal" data-target="#SeeWhoLikeThisModal">
+            {{ quotes.total_likes|human_format }} like{{ quotes.total_likes|pluralize }}
+        </a>
+    {% else %}
+        <a>like</a>
+    {% endif %}
+</form>

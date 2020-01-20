@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {{ title }} - @{{ user.username }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content bg-white p-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>We value your feedback!</h5>
+                    </div>
+
+                    <div class="user_setting">
+                        <div class="feedback">
+                            <p>Your feedback help make Christianbase a better place. we value your feedback! we love to hear from you!</p>
+                        </div>
+                        <br>
+                        <form method="post" id="" data-parsley-validate data-url="{{ request.build_absolute_url|safe }}" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+
+                            <button type="submit" class="btn mag-btn mt-30">Send Feedback</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% load filters %}
+<div id="infinite-container">
+    {% if user_stories %}
+        {% for my_story in user_stories %}
+        <!-- Post A Comment Area -->
+        <div class="archive-posts-area bg-white p-30 mb-30 box-shadow">
+
+            <!-- Single Topic.Catagory Story -->
+            <div class="single-catagory-post d-flex flex-wrap">
+                <!-- Thumbnail -->
+                <div class="post-thumbnail bg-img">
+                    <a href="{{ my_story.get_absolute_url }}">
+                        <img src="{{ my_story.featured_image.url }}" alt="{{ my_story.user.username }} story">
+                    </a>
+                    <!-- <a href="video-post.html" class="video-play"><i class="fa fa-play"></i></a> -->
+                </div>
+
+                <!-- Post Contetnt -->
+                <div class="post-content">
+                    <div class="post-meta">
+                        <a>{{ my_story.created_on|date:"F d, Y" }}</a>
+                        {% if my_story.category %}
+                            <a href="{{ my_story.category.get_absolute_url }}">{{ my_story.category }}</a>
+                        {% endif %}
+                    </div>
+                    <a href="{{ my_story.get_absolute_url }}" class="post-title">
+                        {{ my_story.title }}
+                    </a>
+                    <!-- Post Meta -->
+                    <div class="post-meta-2">
+                        <a><i class="fa fa-eye" aria-hidden="true"></i> {{ my_story.hit_count|human_format }}</a>
+                        <a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ my_story.total_likes|human_format }}</a>
+                        <a><i class="fa fa-comments-o" aria-hidden="true"></i> {{ my_story.total_post_comment|human_format }}</a>
+                    </div>
+                    <p>
+                        {{ my_story.content|safe|truncatewords_html:28 }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+       <p class="no-story-yet">
+           {% if request.user == users %}
+               You haven’t published any public stories yet.
+           {% else %}
+               No Stories Yet
+           {% endif %}
+       </p>
+    {% endif %}
+</div><br>
+<!-- end infinite container -->
+{% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+{% endif %}
+
+<div class="d-flex justify-content-center" style="display:none;">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

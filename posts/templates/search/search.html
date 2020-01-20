@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+
+{% block title %}
+   {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+<br>
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                <div class="search-page">
+                    <h5 class="section-heading">
+                        Search
+                    </h5>
+                    <form action="" method="get">
+                        <div class="input-group">
+                            <input type="search" class="form-control" name="query" id="id_query" placeholder="Search Holy Life Ministry" value="{% if query %}{{ query }}{% endif %}">
+                            <div class="input-group-append">
+                              <button class="btn btn-search" type="submit">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><br>
+
+                <div class="infinite-container">
+                    {% if query %}
+                        {% for my_story in results %}
+                        <!-- Post A Comment Area -->
+                        <div class="infinite-item archive-posts-area bg-white p-30 mb-30 box-shadow">
+
+                            <!-- Single Topic.Catagory Story -->
+                            <div class="single-catagory-post d-flex flex-wrap">
+                                <!-- Thumbnail -->
+                                <div class="post-thumbnail bg-img">
+                                    <a href="{{ my_story.get_absolute_url }}">
+                                        <img src="
+                                        {{ my_story.featured_image.url }}
+                                        " alt="Story image">
+                                    </a>
+                                    <!-- <a href="video-post.html" class="video-play"><i class="fa fa-play"></i></a> -->
+                                </div>
+
+                                <!-- Post Contetnt -->
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <a>{{ my_story.created_on|date:"F d, Y" }}</a>
+                                        {% if category %}
+                                            <a href="{% url 'christianbase_category_story' my_story.category.slug %}">{{ my_story.category }}</a>
+                                        {% endif %}
+                                    </div>
+                                    <a href="{{ my_story.get_absolute_url }}" class="post-title">
+                                        {{ my_story.title }}
+                                    </a>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta-2">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i> {{ my_story.hit_count|human_format }}</a>
+                                        <a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ my_story.total_likes|human_format }}</a>
+                                        <a><i class="fa fa-comments-o" aria-hidden="true"></i> {{ my_story.total_post_comments|human_format }}</a>
+                                    </div>
+                                    <p>
+                                        {{ my_story.content|safe|truncatewords_html:16 }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                           <p class="no-story-yet">
+                               Sorry! no results found, Try again.
+                           </p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <!--  - end infinite container  -->
+                {% if page_obj.has_next %}
+                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+                {% endif %}
+
+                <div class="loading" style="display: none;text-align: center;">
+                    <!-- <span class="sr-only">Loading...</span> -->
+                </div>
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    {% include 'includes/story_detail_right_sidebar.html' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    // tooltips
+    $(document).ready(function(){
+        $('[rel="tooltip"]').tooltip({trigger: "hover"});
+    });
+</script>
+{% endblock %}

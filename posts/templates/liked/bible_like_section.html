@@ -1,0 +1,22 @@
+{% load static %}
+{% load filters %}
+
+<form action="{% url 'biblestudies_like_post' %}" method="post" id="biblelike-section">
+    {% csrf_token %}
+    {% if is_liked %}
+        <button type="submit" id="bible_likes" name="id" value="{{ bible_studies.id }}" class="liked">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        </button>
+    {% else %}
+        <button type="submit" id="bible_likes" name="id" value="{{ bible_studies.id }}">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+    {% if bible_studies.total_likes %}
+        <a href="#" class="total" data-toggle="modal" data-target="#SeeWhoLikeThisModal">
+            {{ bible_studies.total_likes|human_format }} like{{ bible_studies.total_likes|pluralize }}
+        </a>
+    {% else %}
+        <a>like</a>
+    {% endif %}
+</form>

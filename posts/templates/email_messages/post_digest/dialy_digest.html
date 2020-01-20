@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
+    <title>Your account is unlocked, {{ user.username }}</title>
+    <style>
+      @media only screen and (max-width:650px) {
+      .email {
+        width:  100% !important;
+        padding-top:    20px !important;
+        padding-right:  10px !important;
+        padding-bottom: 20px !important;
+        padding-left:   10px !important;
+        border-width:   0 !important;
+      }
+      }
+      @media all and (max-width:500px) {
+      .email {
+        width:  100% !important;
+      }
+      .email-logo:not(.email-logo--collection) {
+        width:  40px;
+      }
+      .email-hr {
+        margin-top: 25px !important;
+        margin-right:   auto;
+        margin-bottom:  25px !important;
+        margin-left:    auto;
+      }
+      .email-section--short + .email-hr {
+        margin-top: 15px !important;
+      }
+      .email-disclaimer {
+        font-size:  12px;
+      }
+      .email-title--stats {
+        font-size:  32px;
+      }
+      .email-title--smallCaps {
+        font-size:  12px !important;
+        line-height:    14px !important;
+      }
+      .email-title--post {
+        font-size:  22px !important;
+        line-height:    26px !important;
+      }
+      .email-postImage {
+        width:  92px !important;
+        height: 80px;
+      }
+      .email-postImage--hero {
+        float:  right;
+        margin-left:    7px;
+      }
+      .email-snippet {
+        display:    none;
+      }
+      .email-card {
+        width:  100%;
+        margin-left:    0;
+        margin-right:   0;
+      }
+      .email-headline--section {
+        font-size:  20px;
+        line-height:    24px;
+        margin-bottom:  5px;
+      }
+      .email-subtitle--section {
+        font-size:  14px;
+        line-height:    18px;
+      }
+      .email-responseButton {
+        display:    none;
+      }
+      }
+    </style>
+  </head>
+
+  <body>
+    <table class="email" style="width: 600px; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto; padding-top: 40px; padding-right: 20px; padding-bottom: 40px; padding-left: 20px; color: #333332; line-height: 1.4; font-size: 16px; font-weight: 300; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif;">
+      <tr>
+        <td>
+          <img class="email-logo" src="cid:logo"
+          alt="Christianbase Logo" style="display: block; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto;">
+          <img src="https://medium.com/_/stat?event=email.opened&amp;source=email-3c9c0bab8459-1453129974887-daily_digest"
+          width="1" height="1">
+          <div>
+            <h2 class="email-headline" style="font-size: 18px; font-weight: 300; line-height: 1.4; text-align: center; margin-top: 5px; margin-bottom: 20px;"><a href="https://medium.com/?source=email-3c9c0bab8459-1453129974887-daily_digest" style="color: #333332; text-decoration: none;">Medium Daily Digest</a></h2>
+            <hr class="email-hr" style="width: 50px; border: 0; border-bottom: 1px solid #e5e5e5; margin-top: 20px; margin-bottom: 35px;">
+            <div class="email-u-center email-section email-section--short" style="text-align: center !important; margin-bottom: 15px; margin-top: -15px;">
+              <div class="email-headline email-headline--small" style="font-size: 14px; font-weight: 300; line-height: 1.4; text-align: center; margin-top: 30px; margin-bottom: 10px; color: #8e8e8e;">
+                Get Medium for
+                <a class="email-link email-link--primary" href="https://itunes.apple.com/app/medium-everyones-stories/id828256236?pt=698524&amp;mt=8&amp;ct=email_header"
+                style="color: #02b875; text-decoration: none;">iOS</a>or
+                <a class="email-link email-link--primary" href="https://play.google.com/store/apps/details?id=com.medium.reader&amp;referrer=utm_source%3Demail_header"
+                style="color: #02b875; text-decoration: none;">Android</a>
+              </div>
+            </div>
+            <hr class="email-hr" style="width: 50px; border: 0; border-bottom: 1px solid #e5e5e5; margin-top: 20px; margin-bottom: 35px;">
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Most recommended by</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">People you follow</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@mitchellharper/an-alternative-to-always-working-harder-a7b17a07524b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*GNqwG1WXXRvSep4bVgfQVw.jpeg"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <div class="email-postRecommenders" style="color: #8e8e8e; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">
+                  <img class="email-icon email-icon--heart" src="https://cdn-static-1.medium.com/_/fp/img/email/heart1.rnGEmSwcGUhztl_zSU7l6Q.png"
+                  style="display: inline-block; vertical-align: middle; width: 15px;"><span class="email-iconText" style="display: inline-block; vertical-align: middle; padding-left: 8px;"><a href="https://medium.com/@cjkmccaffrey?source=email-3c9c0bab8459-1453129974887-daily_digest" style="color: #8e8e8e; text-decoration: none; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">Chad McCaffrey</a></span>
+                </div>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@mitchellharper/an-alternative-to-always-working-harder-a7b17a07524b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">An alternative to always working harder</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@mitchellharper/an-alternative-to-always-working-harder-a7b17a07524b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">How to get the same (or better) outcome with less effort.</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@mitchellharper/an-alternative-to-always-working-harder-a7b17a07524b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended"
+                  style="color: #333332; text-decoration: none;">As human beings we’re only productive for a finite period of time each day. When
+                    you go beyond that, you can maintain output but not quality. There are countless
+                    studies and research papers proving…</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/keep-learning-keep-growing?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro email-avatar--roundedSquare" src="https://d262ilb51hltx0.cloudfront.net/fit/c/150/150/1*M1G7XIOUgEfa2SPuOyLYIg.jpeg"
+                    style="display: block; width: 28px; height: 28px; border-radius: 4px; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">in
+                    <a class="email-link email-link--primary" href="https://medium.com/keep-learning-keep-growing?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Personal Growth</a>, by
+                    <a class="email-link email-link--primary" href="https://medium.com/@mitchellharper?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Mitchell Harper</a>
+                    <div>4 min read</div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@heidi_helen/pretty-peachy-all-about-the-peach-app-aaf1c65b03f2?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--postItem" src="https://d262ilb51hltx0.cloudfront.net/fit/c/140/120/1*-jZBeKeUkeDN4_4Zmu2_aA.png"
+                  style="border: 1px solid #e5e5e5; float: right; margin-left: 7px;">
+                </a>
+                <div class="email-postRecommenders" style="color: #8e8e8e; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">
+                  <img class="email-icon email-icon--heart" src="https://cdn-static-1.medium.com/_/fp/img/email/heart1.rnGEmSwcGUhztl_zSU7l6Q.png"
+                  style="display: inline-block; vertical-align: middle; width: 15px;"><span class="email-iconText" style="display: inline-block; vertical-align: middle; padding-left: 8px;"><a href="https://medium.com/@devevangelist?source=email-3c9c0bab8459-1453129974887-daily_digest" style="color: #8e8e8e; text-decoration: none; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">Robbie Jack</a></span>
+                </div>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 22px; font-weight: 300; line-height: 26px; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@heidi_helen/pretty-peachy-all-about-the-peach-app-aaf1c65b03f2?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">Pretty peachy: all about the Peach app</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 14px; line-height: 20px; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"><a href="https://medium.com/@heidi_helen/pretty-peachy-all-about-the-peach-app-aaf1c65b03f2?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">“Are you on 🍑?” Were the words I woke up to today. I wasn’t, but that was soon rectified. I searched the App Store with the peach symbol…</a></h4>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@heidi_helen?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/0*EPoebo1cvazfXyRa.jpg"
+                    alt="Heidi Helen Pilypas" title="Go to the profile of Heidi Helen Pilypas" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@heidi_helen?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Heidi Helen Pilypas</a>
+                    <div>8 min read</div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@mikeciccolella/7-tips-for-more-effective-b2b-demand-generation-lead-generation-marketing-sales-974137f9a43b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--postItem" src="https://d262ilb51hltx0.cloudfront.net/fit/c/140/120/1*cjW0CWQy6o_Q5u_YYfSlCw.jpeg"
+                  style="border: 1px solid #e5e5e5; float: right; margin-left: 7px;">
+                </a>
+                <div class="email-postRecommenders" style="color: #8e8e8e; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">
+                  <img class="email-icon email-icon--heart" src="https://cdn-static-1.medium.com/_/fp/img/email/heart1.rnGEmSwcGUhztl_zSU7l6Q.png"
+                  style="display: inline-block; vertical-align: middle; width: 15px;"><span class="email-iconText" style="display: inline-block; vertical-align: middle; padding-left: 8px;"><a href="https://medium.com/@Timothy_Hughes?source=email-3c9c0bab8459-1453129974887-daily_digest" style="color: #8e8e8e; text-decoration: none; font-size: 13px; margin-top: 20px; margin-bottom: 5px;">Tim Hughes</a></span>
+                </div>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 22px; font-weight: 300; line-height: 26px; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@mikeciccolella/7-tips-for-more-effective-b2b-demand-generation-lead-generation-marketing-sales-974137f9a43b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">7 Tips for More Effective B2B Demand Generation, Lead Generation, Marketing, &amp; Sales</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 14px; line-height: 20px; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"><a href="https://medium.com/@mikeciccolella/7-tips-for-more-effective-b2b-demand-generation-lead-generation-marketing-sales-974137f9a43b?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=recommended" style="color: #333332; text-decoration: none;">Today for a business to survive and thrive, marketing departments must have a documented content marketing plan. “NO plan” equates to…</a></h4>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@mikeciccolella?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/0*TkC_w90oit2oh_qS.jpeg"
+                    alt="Mike Ciccolella" title="Go to the profile of Mike Ciccolella" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@mikeciccolella?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Mike Ciccolella</a>
+                    <div>3 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Published by</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">Authors and publications you follow</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@RehmanSiddiq/online-reputation-management-change-the-way-world-sees-you-online-20e6bacc2279?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=published"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*D_9FBY5Hu44PO9_Buaskjw.png"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@RehmanSiddiq/online-reputation-management-change-the-way-world-sees-you-online-20e6bacc2279?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=published" style="color: #333332; text-decoration: none;">Online Reputation Management — Change the way world sees you online</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@RehmanSiddiq/online-reputation-management-change-the-way-world-sees-you-online-20e6bacc2279?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=published" style="color: #333332; text-decoration: none;">Believe it or not, people in this world chase two things. One is money for the obvious reasons and the second is fame/reputation/esteem or…</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@RehmanSiddiq/online-reputation-management-change-the-way-world-sees-you-online-20e6bacc2279?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=published"
+                  style="color: #333332; text-decoration: none;">however you would like to define it. People might not accept it openly but they
+                    very much care about how are they perceived by other people. <span class="pilcrow"
+                    style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+In
+                    our school and colleges we were taught the Maslow’s…</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@RehmanSiddiq?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/1*UrAk_r3tGfK2NSQIuD1JlA.png"
+                    alt="Rehman Siddiq" title="Go to the profile of Rehman Siddiq" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@RehmanSiddiq?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Rehman Siddiq</a>
+                    <div>4 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Recommended by</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">Medium Staff</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@brdynamic/t-dc3b3eeb1375?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=suggested"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*xOKQ3nb7_7MopS6bgFtWmw.jpeg"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@brdynamic/t-dc3b3eeb1375?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=suggested" style="color: #333332; text-decoration: none;">The Others: Being Disabled and Going Crazy</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@brdynamic/t-dc3b3eeb1375?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=suggested" style="color: #333332; text-decoration: none;">I tried starting this article over ten times, but I couldn’t find an easy way to transition. For that reason, I’m going to turn off some of…</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@brdynamic/t-dc3b3eeb1375?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=suggested"
+                  style="color: #333332; text-decoration: none;">my mental filters and be direct here. Bear with me. <span class="pilcrow" style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+For
+                    those of you that don’t know me, this is what I look like. <span class="pilcrow"
+                    style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+That’s
+                    me, in a wheelchair, eating a taco. #thugLife <span class="pilcrow" style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+So
+                    imagine my surprise…</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@brdynamic?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/0*_SyvUBTOwsJSXdeb.jpeg"
+                    alt="Brian Rivera" title="Go to the profile of Brian Rivera" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@brdynamic?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Brian Rivera</a>
+                    <div>5 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Top stories in</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">innovation</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@levie/the-industrialist-s-dilemma-is-a-new-course-at-the-stanford-graduate-school-of-business-that-runs-6a13702011bc?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*FbwbfwQebSD6UlBZ20lV4g.jpeg"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@levie/the-industrialist-s-dilemma-is-a-new-course-at-the-stanford-graduate-school-of-business-that-runs-6a13702011bc?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Introducing The Industrialist’s Dilemma</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@levie/the-industrialist-s-dilemma-is-a-new-course-at-the-stanford-graduate-school-of-business-that-runs-6a13702011bc?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">The Industrialist’s Dilemma is a new course at the Stanford Graduate School of Business that runs in the Winter of 2016, and is being…</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@levie/the-industrialist-s-dilemma-is-a-new-course-at-the-stanford-graduate-school-of-business-that-runs-6a13702011bc?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                  style="color: #333332; text-decoration: none;">taught by Stanford GSB Lecturer and XSeed Capital General Partner Robert Siegel
+                    (@robsiegel), Box CEO Aaron Levie (@levie), and is advised by Sapphire Ventures
+                    Vice President Max Wessel …</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/the-industrialist-s-dilemma?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro email-avatar--roundedSquare" src="https://d262ilb51hltx0.cloudfront.net/fit/c/150/150/1*SG_pVe952uXLFbP9q4yDKQ.jpeg"
+                    style="display: block; width: 28px; height: 28px; border-radius: 4px; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">in
+                    <a class="email-link email-link--primary" href="https://medium.com/the-industrialist-s-dilemma?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">The Industrialist’s Dilemma</a>, by
+                    <a class="email-link email-link--primary" href="https://medium.com/@levie?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Aaron Levie</a>
+                    <div>3 min read</div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@zachcmiel/why-elon-musk-would-be-a-great-ceo-of-apple-637b57c1b4f9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--postItem" src="https://d262ilb51hltx0.cloudfront.net/fit/c/140/120/1*sz-ZGMcGkoVhEkyvgFRSdg.jpeg"
+                  style="border: 1px solid #e5e5e5; float: right; margin-left: 7px;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 22px; font-weight: 300; line-height: 26px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@zachcmiel/why-elon-musk-would-be-a-great-ceo-of-apple-637b57c1b4f9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Why Elon Musk Would Be A Great CEO Of Apple</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 14px; line-height: 20px; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"><a href="https://medium.com/@zachcmiel/why-elon-musk-would-be-a-great-ceo-of-apple-637b57c1b4f9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Elon Musk is one of the greatest innovators of all time, being called a real-life Iron Man. His two current companies, SpaceX and Tesla…</a></h4>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/hacker-daily?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro email-avatar--roundedSquare" src="https://d262ilb51hltx0.cloudfront.net/fit/c/150/150/1*jwI58x4SKdxFuOk-Oy0I4A.gif"
+                    style="display: block; width: 28px; height: 28px; border-radius: 4px; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">in
+                    <a class="email-link email-link--primary" href="https://medium.com/hacker-daily?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Hacker Daily</a>, by
+                    <a class="email-link email-link--primary" href="https://medium.com/@zachcmiel?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Zach Cmiel</a>
+                    <div>4 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Top stories in</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">design</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@vanschneider/make-more-live-more-2aec1968bf31?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*5lPz5o3yyG4vtfqYv8SNuQ.jpeg"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@vanschneider/make-more-live-more-2aec1968bf31?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Make more, Live more.</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@vanschneider/make-more-live-more-2aec1968bf31?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">by Tobias van Schneider
+first appeared on my private email list.</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@vanschneider/make-more-live-more-2aec1968bf31?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                  style="color: #333332; text-decoration: none;">In my last two articles I had a similar theme going on. It was about reflecting
+                    on things that happened last year, zooming out and being more conscious about the
+                    things I want to do moving forward. …</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@vanschneider?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/1*pfkQHseCOWeA_uiv0CkBtA.jpeg"
+                    alt="Tobias van Schneider" title="Go to the profile of Tobias van Schneider" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@vanschneider?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Tobias van Schneider</a>
+                    <div>5 min read</div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@tomaslau/7-habits-you-need-to-adopt-to-become-a-better-designer-8f34a93a5da9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--postItem" src="https://d262ilb51hltx0.cloudfront.net/fit/c/140/120/1*tTNbN0tB9d8NwEFXns5p1A.jpeg"
+                  style="border: 1px solid #e5e5e5; float: right; margin-left: 7px;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 22px; font-weight: 300; line-height: 26px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@tomaslau/7-habits-you-need-to-adopt-to-become-a-better-designer-8f34a93a5da9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">7 Habits You Need To Adopt To Become A Better Designer</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 14px; line-height: 20px; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"><a href="https://medium.com/@tomaslau/7-habits-you-need-to-adopt-to-become-a-better-designer-8f34a93a5da9?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Great designers are not born, they are made.</a></h4>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/life-learning?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro email-avatar--roundedSquare" src="https://d262ilb51hltx0.cloudfront.net/fit/c/150/150/1*BsB2E0liBZISiG1F1cyOPA.png"
+                    style="display: block; width: 28px; height: 28px; border-radius: 4px; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">in
+                    <a class="email-link email-link--primary" href="https://medium.com/life-learning?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Life Learning</a>, by
+                    <a class="email-link email-link--primary" href="https://medium.com/@tomaslau?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Tomas Laurinavicius</a>
+                    <div>3 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Top stories in</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">social-media</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@andrebob/i-gave-up-on-facebook-and-replaced-it-with-medium-491d6f189584?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">I gave up on Facebook and replaced it with Medium</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@andrebob/i-gave-up-on-facebook-and-replaced-it-with-medium-491d6f189584?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">About two weeks ago, I decided to deactivate my Facebook, with no real intentions of returning to it. I had already spent the past 6 months…</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@andrebob/i-gave-up-on-facebook-and-replaced-it-with-medium-491d6f189584?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                  style="color: #333332; text-decoration: none;">with the app deleted from my phone, so it had been a slow detox for me. <span class="pilcrow"
+                    style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+Growing
+                    out of an all-consuming platform <span class="pilcrow" style="font-family: &quot;Arial&quot; , sans-serif; font-size: .8em; padding-top: .1em; padding-right: .25em; padding-bottom: 0; padding-left: .25em; vertical-align: top; display: inline-block; color: #cccccc;">¶</span>
+Those
+                    of you who know me might wonder why I’d even use the word “detox” as it…</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@andrebob?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/0*3XEvWJwEhq0AIz_M.jpeg"
+                    alt="Andre Bohrer" title="Go to the profile of Andre Bohrer" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@andrebob?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Andre Bohrer</a>
+                    <div>5 min read</div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@invoker/5-big-changes-coming-to-social-media-in-2016-1549ea9c4670?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--postItem" src="https://d262ilb51hltx0.cloudfront.net/fit/c/140/120/1*4FB_SCZLpMAYO8xC_h_4Ng.jpeg"
+                  style="border: 1px solid #e5e5e5; float: right; margin-left: 7px;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 22px; font-weight: 300; line-height: 26px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@invoker/5-big-changes-coming-to-social-media-in-2016-1549ea9c4670?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">5 Big Changes Coming to Social Media in 2016</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 14px; line-height: 20px; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"><a href="https://medium.com/@invoker/5-big-changes-coming-to-social-media-in-2016-1549ea9c4670?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">It’s been a memorable year in social media. 2015 saw the birth of live social streaming, with apps like Periscope and Meerkat winning over…</a></h4>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/@invoker?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro" src="https://d262ilb51hltx0.cloudfront.net/fit/c/100/100/0*YxxvXwbXlQ2kmvmW.png"
+                    alt="Ryan Holmes" title="Go to the profile of Ryan Holmes" style="display: block; width: 28px; height: 28px; border-radius: 100%; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <a class="email-link email-link--primary" href="https://medium.com/@invoker?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Ryan Holmes</a>
+                    <div>6 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-title email-title--smallCaps" style="text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;"><small>Top stories in</small>
+            </div>
+            <div class="email-title email-title--smallCaps email-u-bold" style="font-weight: 700 !important; text-align: center; font-family: -apple-system , BlinkMacSystemFont , &quot;Segoe UI&quot; , &quot;Roboto&quot; , &quot;Oxygen&quot; , &quot;Ubuntu&quot; , &quot;Cantarell&quot; , &quot;Open Sans&quot; , &quot;Helvetica Neue&quot; , sans-serif; font-size: 14px; line-height: 18px; margin-bottom: 0; letter-spacing: 1px; text-transform: uppercase;">entrepreneurship</div>
+            <div class="email-sectionPreview email-sectionPreview--borderless email-sectionPreview--digest"
+            style="margin-top: 15px; margin-right: 0; margin-bottom: 30px; margin-left: 0; padding-top: 0; border-top: 1px solid #e5e5e5; border: 0;">
+              <div class="email-postItem" style="min-height: 130px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+                <a href="https://medium.com/@jonwestenberg/always-believe-you-re-good-enough-6576c528b0ad?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                style="color: #333332; text-decoration: none;">
+                  <img class="email-postImage email-postImage--hero" src="https://d262ilb51hltx0.cloudfront.net/max/600/1*YHGJ3V8pE3IpOqgNvGvv0Q.jpeg"
+                  style="border: 1px solid #e5e5e5; width: 100%;">
+                </a>
+                <h2 class="email-title email-title--post email-u-left" style="text-align: left !important; font-family: Georgia , Cambria , &quot;Times New Roman&quot; , Times , serif; font-size: 32px; font-weight: 300; line-height: 36px; margin-bottom: 0; margin-top: 15px; margin-right: 0; margin-left: 0;"><a href="https://medium.com/@jonwestenberg/always-believe-you-re-good-enough-6576c528b0ad?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">Always Believe You’re Good Enough.</a></h2>
+                <h4 class="email-subtitle email-subtitle--post email-u-left" style="text-align: left !important; font-weight: 300; font-size: 18px; line-height: 24px; margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0;"><a href="https://medium.com/@jonwestenberg/always-believe-you-re-good-enough-6576c528b0ad?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag" style="color: #333332; text-decoration: none;">BY JON WESTENBERG</a></h4>
+                <p class="email-snippet" style="margin-top: 5px; margin-bottom: 5px; font-size: 14px; line-height: 20px; margin-right: 0; margin-left: 0;">
+                  <a href="https://medium.com/@jonwestenberg/always-believe-you-re-good-enough-6576c528b0ad?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;sectionName=tag"
+                  style="color: #333332; text-decoration: none;">Everyone in the world is hoping for one thing. That nobody notices they don’t
+                    belong. Everyone in the world suffers from imposter syndrome sooner or later. I
+                    can guarantee you, no matter what stage…</a>
+                </p>
+                <div class="email-postMeta" style="color: #8e8e8e; margin-top: 10px;">
+                  <a href="https://medium.com/life-learning?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                  style="color: #333332; text-decoration: none;">
+                    <img class="email-avatar email-avatar--micro email-avatar--roundedSquare" src="https://d262ilb51hltx0.cloudfront.net/fit/c/150/150/1*BsB2E0liBZISiG1F1cyOPA.png"
+                    style="display: block; width: 28px; height: 28px; border-radius: 4px; background: #f0f0f0; line-height: 0; margin-right: 10px; float: left;">
+                  </a>
+                  <div class="email-avatarText email-avatarText--micro" style="margin-left: 36px; margin-bottom: 10px; padding-bottom: 10px; font-size: 12px;">in
+                    <a class="email-link email-link--primary" href="https://medium.com/life-learning?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Life Learning</a>, by
+                    <a class="email-link email-link--primary" href="https://medium.com/@jonwestenberg?source=email-3c9c0bab8459-1453129974887-daily_digest"
+                    style="color: #02b875; text-decoration: none;">Jon Westenberg</a>
+                    <div>4 min read</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="email-u-center" style="text-align: center !important;">
+              <a class="email-button" href="https://medium.com/?source=email-3c9c0bab8459-1453129974887-daily_digest"
+              style="color: #ffffff; text-decoration: none; display: inline-block; position: relative; height: 38px; line-height: 38px; padding-top: 0; padding-right: 16px; padding-bottom: 0; padding-left: 16px; border: 0; outline: 0; background-color: #02b875; font-size: 14px; font-style: normal; font-weight: 400; text-align: center; cursor: pointer; white-space: nowrap; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; user-select: none; border-radius: 999em;">Read more on Medium</a>
+              <div class="email-headline--small" style="margin-top: 30px; margin-bottom: 10px; font-size: 14px; color: #8e8e8e;">Connect with us on:</div>
+              <div>
+                <a href="https://twitter.com/medium" style="color: #333332; text-decoration: none;">
+                  <img class="email-icon email-icon--small email-icon--twitter" src="https://cdn-static-1.medium.com/_/fp/img/email/twitter_logo.Pz4a3o9WMU5QioxLKcyFhQ.png"
+                  style="display: inline-block; vertical-align: middle; width: 29px; margin-top: 0; margin-right: 5px; margin-bottom: 0; margin-left: 5px;">
+                </a>
+                <a href="https://www.facebook.com/medium" style="color: #333332; text-decoration: none;">
+                  <img class="email-icon email-icon--small" src="https://cdn-static-1.medium.com/_/fp/img/email/fb_logo.Q0M98YwNTu77gLWTK6-RyQ.png"
+                  style="display: inline-block; vertical-align: middle; width: 25px; margin-top: 0; margin-right: 5px; margin-bottom: 0; margin-left: 5px;">
+                </a>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="email-u-center" style="text-align: center !important;">
+            <div class="email-headline email-headline--small" style="font-size: 14px; font-weight: 300; line-height: 1.4; text-align: center; margin-top: 30px; margin-bottom: 10px; color: #8e8e8e;">Get the Medium app:</div>
+            <div class="email-linkSet" style="margin-top: 15px; margin-bottom: 35px;">
+              <a class="email-link email-link--primary" href="https://itunes.apple.com/app/medium-everyones-stories/id828256236?pt=698524&amp;mt=8&amp;ct=email_footer"
+              style="color: #02b875; text-decoration: none; margin-right: 15px;">
+                <img src="https://cdn-static-1.medium.com/_/fp/img/email/app_store_badge@2x.8bDQGNMm-Xs7Hz6WA2XquQ.png"
+                width="135" height="40" alt="Get Medium on the App Store">
+              </a>
+              <a class="email-link email-link--primary" href="https://play.google.com/store/apps/details?id=com.medium.reader&amp;referrer=utm_source%3Demail_footer"
+              style="color: #02b875; text-decoration: none; margin-right: 0;">
+                <img src="https://cdn-static-1.medium.com/_/fp/img/email/google_play_badge@2x.iWEWlt5_Qj20rr79-IGEBQ.png"
+                width="135" height="40" alt="Get Medium on Google Play">
+              </a>
+            </div>
+          </div>
+          <div class="email-footer" style="padding-top: 15px; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 50px; color: #b3b3b1; font-size: 12px; text-align: center; border-top: 1px solid #e5e5e5;">Sent by
+            <a class="email-link email-link--muted email-link--underline" href="https://medium.com/?source=email-3c9c0bab8459-1453129974887-daily_digest"
+            style="color: #b3b3b1; text-decoration: none;">Medium</a>&middot; 760 Market Street, 9th floor, San Francisco, CA 94102
+            <div>Switch to the
+              <a class="email-link email-link--muted email-link--underline" href="https://medium.com/me/email-settings/3c9c0bab8459/cfe17c9a4b3737811085631f8785bd8e?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;type=network&amp;preference=2"
+              style="color: #b3b3b1; text-decoration: none;">weekly digest</a>or
+              <a class="email-link email-link--muted email-link--underline"
+              href="https://medium.com/me/email-settings/3c9c0bab8459/cfe17c9a4b3737811085631f8785bd8e?source=email-3c9c0bab8459-1453129974887-daily_digest&amp;type=network"
+              style="color: #b3b3b1; text-decoration: none;">unsubscribe</a>&middot;
+              <a class="email-link email-link--muted email-link--underline"
+              href="https://help.medium.com/hc/en-us" style="color: #b3b3b1; text-decoration: none;">Help center</a>&middot;
+              <a class="email-link email-link--muted email-link--underline"
+              href="https://medium.com/policy/medium-privacy-policy-f03bf92035c9?source=email-3c9c0bab8459-1453129974887-daily_digest"
+              style="color: #b3b3b1; text-decoration: none;">Privacy policy</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+
+</html>

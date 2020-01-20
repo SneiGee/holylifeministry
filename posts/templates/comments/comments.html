@@ -1,0 +1,117 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<!-- Post A Comment Area -->
+<div class="post-a-comment-area bg-white mb-30 p-30 box-shadow clearfix">
+    <!-- Section Title -->
+    <div class="section-heading">
+        <h5>LEAVE A REPLY</h5>
+    </div>
+
+    <!-- Reply Form -->
+    <div class="contact-form-area">
+        <form action="{% url 'user_comment' user_post.id %}" method="post" class="comment-form" data-parsley-validate novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 comment-textare">
+                    {{ comment_form.as_p }}
+                </div>
+                <div class="col-12">
+                    <button class="btn mag-btn mt-30" type="submit">Submit Comment</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Comment Area Start -->
+<div class="comment_area clearfix bg-white mb-30 p-30 box-shadow">
+    {% if comments %}
+    <!-- Section Title -->
+    <div class="section-heading">
+        <h5>COMMENTS ({{ comments.count }})</h5>
+    </div>
+    {% for comment in comments %}
+    <ol>
+        <!-- Single Comment Area -->
+        <li class="single_comment_area">
+            <!-- Comment Content -->
+            <div class="comment-content d-flex">
+                <!-- Comment Author -->
+                <div class="comment-author">
+                    <a href="{% url 'christianbase_userprofile' comment.user.username %}">
+                        <img src="
+                        {% if comment.user.profile.image %}
+                           {{ comment.user.profile.image.url }}
+                        {% else %}
+                           /static/images/default.png
+                        {% endif %}
+                        " alt="{{ comment.user.get_full_name }}">
+                    </a>
+                </div>
+                <!-- Comment Meta -->
+                <div class="comment-meta">
+                    <a class="comment-date">{{ comment.created_on|date:'F d, Y' }}</a>
+                    <h6>
+                        <a href="{% url 'christianbase_userprofile' comment.user.username %}" class="comment-user">{{ comment.user.get_full_name }}</a>
+                    </h6>
+                    <p>
+                        {{ comment.content }}
+                    </p>
+                    <div class="d-flex align-items-center Reply">
+                        <!-- {% include 'liked/likes_comments/story_comment.html' %} -->
+                        <!-- <a href="#" class="like">like</a> -->
+                        <!-- <a href="#" class="reply-btn reply">Reply</a> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <ol class="replied-comments children" style="display: none;">
+                <li class="single_comment_area">
+                    {% for reply in comment.replies.all %}
+                        <div class="comment-content d-flex">
+                            <div class="comment-author">
+                                <img src="
+                                {% if reply.user.profile.image %}
+                                   {{ reply.user.profile.image.url }}
+                                {% else %}
+                                   /static/images/default.png
+                                {% endif %}
+                                " alt="{{ reply.user.get_full_name }}">
+                            </div>
+                            <div class="comment-meta">
+                                <a href="#" class="comment-date">{{ reply.created_on|date:'F d, Y' }}</a>
+                                <h6>{{ reply.user }}</h6>
+                                <p>
+                                    {{ reply.content }}
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="like">like</a>
+                                    <a href="#" class="reply">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <form action="" method="post" class="reply-form" data-parsley-validate novalidate>
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <div class="form-group comment-textare">
+                            {{ comment_form.content|as_crispy_field }}
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Reply</button>
+                        {% else %}
+                          <input type="submit" value="Reply" class="btn btn-outline-success btn-sm" disabled>
+                        {% endif %}
+                    </form>
+                </li>
+            </ol> -->
+        </li>
+    </ol>
+    {% endfor %}
+    {% else %}
+    <div class="section-heading">
+        <h5>Be The First To Comment</h5>
+    </div>
+    {% endif %}
+</div>

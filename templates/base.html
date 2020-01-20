@@ -1,0 +1,208 @@
+{% load static %}
+{% load filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Holy Life Ministry is an online publishing platform, where words matter, smart voices and original ideas take center stage.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>{% block title %}Holy Life Ministry{% endblock %}</title>
+
+    <!-- FAVICONS  -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/icon_144.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/icon_114.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/icon_72.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo_icon1.png' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+
+    <!--   CSS STYLESHEET  -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}">
+     <!--  TagsInput CSS STYLESHEET -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/tagsinput/bootstrap-tagsinput.css' %}"> -->
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
+
+    <link rel="stylesheet" href="{% static 'js/plugins/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}" />
+
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <!--  end preloader  -->
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        {% include 'includes/header.html' %}
+    </header>
+    <!--    end header    -->
+
+    <!-- ##### Mag Posts Area Start ##### -->
+    {% block content %}{% endblock content %}
+    <!--  end section  -->
+
+
+    <!--
+      ////////////////////////////////////////////////////////////////////////
+      //////////           JAVASCRIPT         //////////
+      /////////////////////////////////////////////////////////////////////
+    -->
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- <script src="{% static 'js/jquery/jquery-3.2.1.slim.min.js' %}"></script> -->
+    <script src="{% static 'js/jquery/jquery-ui.min.js' %}"></script>
+    <!-- <script src="{% static 'js/jquery/jquery.js' %}"></script> - -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!--  Bootstrap js -->
+    <!-- <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script> -->
+    <!-- All Plugins js -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Parsley Plugins js -->
+    <script src="{% static 'js/plugins/parsley/parsley.mins.js' %}"></script>
+    <!-- Waypoint / Infinite Scroll Plugins js -->
+    <script src="{% static 'js/plugins/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/plugins/waypoints/infinite.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/main/style.js' %}"></script>
+    <script src="{% static 'js/main/file_input.js' %}"></script>
+    <!-- CKeditor Plugins js -->
+    <script type="text/javascript" src="{% static 'js/plugins/ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/plugins/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- File-Input js -->
+    <!-- <script src="{% static 'js/plugins/file-input/dist/bs-custom-file-input.js' %}"></script> -->
+    <!-- TagsInput-Input js -->
+    <!-- <script src="{% static 'js/plugins/tagsinput/bootstrap-tagsinput.min.js' %}"></script> -->
+    <!-- TypeaHead js -->
+    <!-- <script src="{% static 'js/plugins/typeahead/typeahead.js' %}"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% google_analytics_id as GOOGLE_ANALYTICS_ID %}
+    {% if GOOGLE_ANALYTICS_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS_ID}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{GOOGLE_ANALYTICS_ID}}');
+    </script>
+    {% endif %}
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script> -->
+    <script type="text/javascript">
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    </script>
+    <script>
+
+        $(function() {
+            setTimeout(function(){
+                $('.alert').slideUp(1000);
+            }, 4000);
+        });
+
+        // tooltips
+        $(document).ready(function(){
+            $('[rel="tooltip"]').tooltip({trigger: "hover"});
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('a.follow').click(function(e) {
+                e.preventDefault();
+                $.post('{% url "user_follow" %}',
+                    {
+                        id: $(this).data('id'),
+                        action: $(this).data('action')
+                    },
+                    function(data) {
+                        if (data['status'] =='ok') {
+                            var previous_action = $('a.follow').data('action');
+
+                            $('a.follow').data('action',
+                                previous_action == 'follow' ? 'unfollow' : 'follow');
+                            $('a.follow').text(
+                                previous_action == 'follow' ? 'Following' : 'Follow'
+                            );
+
+                            var previous_followers = parseInt(
+                                $('li.count .total').text()
+                            );
+                            $('li.count .total').text(previous_action == 'follow' ?
+                            previous_followers + 1 : previous_followers - 1);
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        // --- infinite scroll ---
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onBeforePageLoad: function () {
+               $('.spinner-border').show();
+            },
+            onAfterPageLoad: function ($items) {
+                // window.history.pushState;
+                $('.spinner-border').hide();
+            }
+        });
+    </script>
+
+    {% block javascript %}
+    {% endblock %}
+
+</body>
+</html>

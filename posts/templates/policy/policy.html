@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+
+{% block title %}
+   {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<br>
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                <!-- Post A Comment Area -->
+                <div class="archive-posts-area bg-white p-30 mb-30 box-shadow">
+                    {% if request.user.is_superuser %}
+                        <div class="add-new">
+                            <a href="{% url 'policy-add' %}">
+                                <i class="fa fa-plus"></i>
+                                Add New Post
+                            </a>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    <div class="infinite-container">
+                    {% if policy %}
+                        {% for my_story in policy %}
+
+                            <!-- Single Topic.Catagory Story -->
+                            <div class="infinite-item single-catagory-post d-flex flex-wrap">
+                                <!-- Post Contetnt -->
+                                <div class="bible-studies-content">
+                                    <div class="post-meta">
+                                        <a>{{ my_story.created_on|date:"F d, Y" }}</a>
+                                    </div>
+                                    <a href="{{ my_story.get_absolute_url }}" class="post-title">
+                                        {{ my_story.title }}
+                                    </a>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta-2">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i> {{ my_story.hit_count|human_format }}</a>
+                                        <a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                            {{ my_story.total_likes|human_format }}
+                                        </a>
+                                        <a><i class="fa fa-comments-o" aria-hidden="true"></i> {{ my_story.total_comments|human_format }}</a>
+                                    </div>
+                                    <p>
+                                        {{ my_story.content|safe|truncatewords_html:30 }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-story-yet">
+                           No stories or articles!.
+                        </p>
+                    {% endif %}
+                    </div>
+                    <!-- end infinite-container -->
+                    {% if page_obj.has_next %}
+                        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+                    {% endif %}
+
+                    <div class="loading" style="display: none;text-align: center;">
+                        <!-- <span class="sr-only">Loading...</span> -->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    {% include 'includes/story_detail_right_sidebar.html' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    // tooltips
+    $(document).ready(function(){
+        $('[rel="tooltip"]').tooltip({trigger: "hover"});
+    });
+</script>
+{% endblock %}

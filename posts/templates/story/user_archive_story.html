@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+
+{% block title %}
+   {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+<br>
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                <div class="infinite-container">
+                {% if story_archive %}
+                    {% for my_story in story_archive %}
+                    <!-- Post A Comment Area -->
+                    <div class="infinite-item archive-posts-area bg-white p-30 mb-30 box-shadow">
+
+                        <!-- Single Topic.Catagory Story -->
+                        <div class="single-catagory-post d-flex flex-wrap">
+                            <!-- Thumbnail -->
+                            <div class="post-thumbnail bg-img">
+                                <a href="{{ my_story.get_absolute_url }}">
+                                    <img src="
+                                    {{ my_story.featured_image.url }}
+                                    " alt="{{ my_story.user.username }} story">
+                                </a>
+                                <!-- <a href="video-post.html" class="video-play"><i class="fa fa-play"></i></a> -->
+                            </div>
+
+                            <!-- Post Contetnt -->
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <a>{{ my_story.created_on|date:"F d, Y" }}</a>
+                                    {% if my_story.category %}
+                                        <a href="{% url 'christianbase_category_story' my_story.category.slug %}">{{ my_story.category }}</a>
+                                    {% endif %}
+                                    <div class="story_detail_btn">
+                                        {% if my_story.user == user %}
+                                            <a href="
+                                                {% if my_story.user.userrole_set.last.role == 'Author' or my_story.user.userrole_set.last.role == 'Admin' %}
+                                                    {% url 'christianbase_unarchive_stories' my_story.slug %}
+                                                {% elif my_story.user.userrole_set.last.role == 'BS P' %}
+                                                    {% url 'unarchive-bible-studies' my_story.slug %}
+                                                {% elif my_story.user.userrole_set.last.role == 'Devotion P' %}
+                                                    {% url 'unarchive-devotion' my_story.slug %}
+                                                {% elif my_story.user.userrole_set.last.role == 'Tech P' %}
+                                                    {% url 'unarchive-tech' my_story.slug %}
+                                                {% elif my_story.user.userrole_set.last.role == 'Quotes P' %}
+                                                    {% url 'unarchive-quotes' my_story.slug %}
+                                                {% else %}
+                                                    {% url 'unarchive-policy' my_story.slug %}
+                                                {% endif %}
+                                                ">
+                                                <button class="btn btn-outline-secondary btn-sm mt-1 mb-1" data-toggle="tooltip" title="Public this story">
+                                                    <i class="fa fa-globe"></i>
+                                                </button>
+                                            </a>
+                                            {% if my_story.user.userrole_set.last.role == 'Author' or my_story.user.userrole_set.last.role == 'Admin' %}
+                                                <button class="btn btn-outline-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#MoveToTrashModal" rel="tooltip" data-toggle="tooltip" title="Move to trash">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <a href="{{ my_story.get_absolute_url }}" class="post-title">
+                                    {{ my_story.title }}
+                                </a>
+                                <!-- Post Meta -->
+                                <div class="post-meta-2">
+                                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{ my_story.hit_count|human_format }}</a>
+                                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ my_story.total_likes|human_format }}</a>
+                                    <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> {{ my_story.total_post_comments|human_format }}</a>
+                                </div>
+                                <p>
+                                    {{ my_story.content|safe|truncatewords_html:15 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                   <p class="no-story-yet">
+                       You have no archive stories.
+                   </p>
+                {% endif %}
+                </div>
+                <!--  - end infinite container  -->
+                {% if page_obj.has_next %}
+                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+                {% endif %}
+
+                <div class="loading" style="display: none;text-align: center;">
+                    <!-- <span class="sr-only">Loading...</span> -->
+                </div>
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    {% include 'includes/story_detail_right_sidebar.html' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+{% if story_archive %}
+{% for my_story in story_archive %}
+<!-- Move To Trash  Modal -->
+<div class="modal fade" id="MoveToTrashModal" tabindex="-1" role="dialog" aria-labelledby="MoveToTrashModalTitle"
+  aria-hidden="true">
+
+    <!-- Move story to trash .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <form method="post" action="" id="move_story_to_trash" data-url="{{ request.build_absolute_url|safe }}">
+                <div class="modal-body permanant_delete-modal">
+                    <p>Move story to trash</p>
+                    <p>
+                        Your story will move to trash and you can restore it later.
+                    </p>
+                    <p style="display: none;">
+                        <!-- <a href="" class="feedback">
+                            Please tell us why you leaving!
+                        </a> -->
+                    </p>
+                    <p>
+                        <a href="{% url 'christianbase_delete_stories' my_story.slug %}" class="permanant_delete">
+                            Yes, Continue
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" data-dismiss="modal">
+                           Cancel
+                        </a>
+                    </p>
+                </div>
+            </form>
+            <!-- <div class="modal-footer profile-modal-footer">
+                <a href="#" data-dismiss="modal">Close</a>
+            </div> -->
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+{% endfor %}
+{% endif %}
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    // tooltips
+    $(document).ready(function(){
+        $('[rel="tooltip"]').tooltip({trigger: "hover"});
+    });
+</script>
+{% endblock %}

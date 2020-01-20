@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   Upload Photo - {{ user.get_full_name }} (@{{ user.username }}) | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+    <div class="messages" id="messages"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content bg-white p-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>Upload Photo!</h5>
+                    </div>
+
+                    <form method="POST" id="" enctype='multipart/form-data' data-url="{{ request.build_absolute_url|safe }}" data-parsley-validate novalidate>
+                        {% csrf_token %}
+                        <div class="">
+                            <div class="imgUp">
+                                <label class="imagePreview">
+                                    <img src="https://getstamped.co.uk/wp-content/uploads/WebsiteAssets/Placeholder.jpg" class="image-preview">
+                                    <input type="file" class="uploadFile img clearablefileinput" name="image" accept="image/*" id="id_image" style="width: 0px;height: 0px;overflow: hidden;">
+                                    <!-- {{ form|crispy }} -->
+                                </label>
+                                <br>
+                                <button type="submit" class="btn mag-btn mt-30 upload-btn-input"> Upload Photo</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    // Prepare the preview for profile picture
+        $(".uploadFile").change(function(){
+            readURL(this);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-preview').attr('src', e.target.result).fadeIn('slow');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script type="text/javascript">
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load static %}
+{% load filters %}
+
+<form action="." method="post" id="story-comment-section">
+    {% csrf_token %}
+    {% if is_comment_like %}
+        <button type="submit" id="story-comment-like" name="id" value="{{ comment.id }}" class="like-active">
+            LIKE
+        </button>
+    {% else %}
+        <button type="submit" id="story-comment-like" name="id" value="{{ comment.id }}" class="like">
+            LIKE
+        </button>
+    {% endif %}
+    <a href="#" class="total">
+        {{ comment.total_likes }}
+    </a>
+</form>

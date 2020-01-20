@@ -1,0 +1,17 @@
+{% autoescape off %}
+    Hi {{ user.get_full_name }},
+
+    Welcome to Ajax Django, to activate your account......
+
+    Please click on the link to confirm your registration,
+
+    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+    If you didn't request this you can leave it.
+
+
+    Thanks for Joining Us.
+
+    The Ajax Django Team.
+
+{% endautoescape %}

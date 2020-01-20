@@ -1,0 +1,13 @@
+{% load static %}
+<form method="post" action="{% url 'christianbase_add_user_bookmarks' %}" id="bookmarks_section">
+    {% csrf_token %}
+    {% if is_favorite %}
+        <button type="submit" id="bookmarks" name="id" value="{{ user_post.id }}" class="bookmarks">
+            <i class="fa fa-bookmark-o" data-toggle="tooltip" title="Remove story from bookmark" aria-hidden="true"></i>
+        </button>
+    {% else %}
+        <button type="submit" id="bookmarks" name="id" value="{{ user_post.id }}">
+            <i class="fa fa-bookmark-o" data-toggle="tooltip" title="Bookmark story" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+</form>

@@ -1,0 +1,382 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+
+{% block title %}
+   {{ users.get_full_name }} (@{{ users.username }}) | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="messages">
+    {% if messages %}
+       {% for message in messages %}
+         <div class="alert alert-{{ tags }}">
+             {{ message }}
+         </div>
+       {% endfor %}
+    {% endif %}
+</div>
+<!-- ##### User Profile ##### -->
+<div class="user-profile-area">
+    <div class="container profile-container">
+        <div class="profile">
+
+            <div class="profile-image">
+                <img src="
+                {% if users.profile.image %}
+                    {{ users.profile.image.url }}
+                {% else %}
+                    /static/images/default.png
+                {% endif %}
+                " alt="{{ users.get_full_name }}" data-toggle="modal" data-target="#showProfilePhotoModal">
+            </div>
+
+            <div class="profile-user-settings">
+
+                <h1 class="profile-user-name">{{ users.username }}</h1>
+                {% if request.user == users %}
+                    <button class="btn p-btn profile-edit-btn">
+                        <a href="{% url 'christianbase_userprofile_edit' users.username %}"> Edit Profile</a>
+                    </button>
+                {% else %}
+                    <button class="btn p-btn profile-follow-btn">
+                        <a href="#" data-id="{{ users.id }}" data-action="{% if request.user in users.followers.all %}un{% endif %}follow" class="follow">
+                            {% if request.user not in users.followers.all %}
+                                Follow
+                            {% else %}
+                                Following
+                            {% endif %}
+                        </a>
+                    </button>
+                    <button class="btn p-btn profile-settings-btn" aria-label="profile settings" data-toggle="modal" data-target="#UserSettingReportBlockModal">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                {% endif %}
+
+            </div>
+
+            <div class="profile-stats">
+
+                <ul>
+                    <li>
+                        <span class="profile-stat-count">
+                            {% if users.userrole_set.last.role == 'Author' or users.userrole_set.last.role == 'Admin' %}
+                                {{ count_user_stories.count|human_format }}
+                            {% elif users.userrole_set.last.role == 'BS P' %}
+                                {{ count_biblestudies_stories.count|human_format }}
+                            {% elif users.userrole_set.last.role == 'Devotion P' %}
+                                {{ count_devotion_stories.count|human_format }}
+                            {% elif users.userrole_set.last.role == 'Tech P' %}
+                                {{ count_tech_stories.count|human_format }}
+                            {% elif users.userrole_set.last.role == 'Tech P' %}
+                                {{ count_quotes_stories.count|human_format }}
+                            {% else %}
+                                {{ count_policy_stories.count|human_format }}
+                            {% endif %}
+                        </span> posts
+                    </li>
+                    <li class="count">
+                    {% with total_followers=users.followers.count %}
+                        <span class="profile-stat-count total">{{ total_followers|human_format }}</span>
+                        {% if total_followers %}
+                        <span class="followers-list" data-toggle="modal" data-target="#UserFollowersListModal">
+                            follower{{ total_followers|pluralize }}
+                        </span>
+                        {% else %}
+                            follower
+                        {% endif %}
+                    {% endwith %}
+                    </li>
+                    <li>
+                        {% with total_following=users.following.count %}
+                        <span class="profile-stat-count total">{{ total_following }}</span>
+                        {% if total_following %}
+                        <span class="followers-list" data-toggle="modal" data-target="#UserFollowingListModal">
+                            following
+                        </span>
+                        {% else %}
+                            following
+                        {% endif %}
+                        {% endwith %}
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="profile-bio">
+
+                <p><span class="profile-real-name">{{ users.get_full_name }} | </span>
+                    {% if users.profile.bio %}
+                        {{ users.profile.bio }}
+                    {% else %}
+                        New to Holy Life Ministry
+                    {% endif %}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div><!--   end container  -->
+</div>
+<!-- ##### User Profile End ##### -->
+
+
+<!-- ##### User All Posts ##### -->
+<div class="archive-post-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-12">
+                {% include 'user_accounts/load_data/load_user_stories.html' %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ##### User All Posts End ##### -->
+
+
+
+<!-- View Profile Modal -->
+<div class="modal fade" id="showProfilePhotoModal" tabindex="-1" role="dialog" aria-labelledby="showProfilePhotoModalTitle"
+  aria-hidden="true">
+
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+
+            <img src="
+            {% if users.profile.image %}
+                {{ users.profile.image.url }}
+            {% else %}
+                /static/images/default.png
+            {% endif %}
+            " alt="{{ users.get_full_name }}" width="500" height="500">
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+
+
+<!-- User Setting Report / Block User Modal -->
+<div class="modal fade" id="UserSettingReportBlockModal" tabindex="-1" role="dialog" aria-labelledby="UserSettingReportBlockTitle"
+  aria-hidden="true">
+
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body user-setting-report-modal">
+                <p>
+                    Report
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                </p>
+                <p>
+                    <a href="#" class="report-user" data-toggle="modal" data-target="#UserReportModal" data-dismiss="modal">
+                        Report this user
+                    </a>
+                </p>
+                <p>
+                    <a href="#" class="block-user">
+                        Block this user
+                    </a>
+                </p>
+                <p>
+                    <a href="#" data-dismiss="modal">
+                       Cancel
+                    </a>
+                </p>
+            </div>
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+<!-- User Report ( Optional )  Modal -->
+<div class="modal fade" id="UserReportModal" tabindex="-1" role="dialog" aria-labelledby="UserReportTitle"
+  aria-hidden="true">
+
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body user-report-modal">
+                <!-- <form method="POST" action="" novalidate> -->
+                    <p>
+                        Report
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </p>
+                    <p class="text-center">
+                        Christianbase won't tell <strong>{{ users.username }}</strong> you report him
+                    </p>
+                    {% for report in reports %}
+                    <p>
+                        <a href="{% url 'christianbase_user_report' %}" class="report" name="id" value="{{ id }}">
+                            {{ report }}
+                            <!-- <i class="fa fa-chevron-right"></i> -->
+                        </a>
+                    </p>
+                    {% endfor %}
+                    <p class="text-center">
+                        <a href="#" data-dismiss="modal">
+                           Cancel
+                        </a>
+                    </p>
+                <!-- </form> -->
+            </div>
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+<!-- User Followers List  Modal -->
+<div class="modal fade" id="UserFollowersListModal" tabindex="-1" role="dialog" aria-labelledby="UserFollowersListModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="UserFollowersListModalTitle">Followers
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="see_users_likes">
+                            {% for follower in users.followers.all %}
+                                <div class="media">
+                                    <a class="media-left" href="{% url 'christianbase_userprofile' follower.username %}">
+                                        <img class="media-object" src="
+                                        {% if follower.profile.image %}
+                                            {{ follower.profile.image.url }}
+                                        {% else %}
+                                            /static/images/default.png
+                                        {% endif %}
+                                        " width="100" alt="{{ follower.username }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="media-heading">{{ follower.username }}</div>
+                                        <span>{{ follower.get_full_name }}</span>
+                                        <a href="{% url 'christianbase_userprofile' follower.username %}" class="btn btn-secondary btn-sm">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+<!-- User Following List  Modal -->
+<div class="modal fade" id="UserFollowingListModal" tabindex="-1" role="dialog" aria-labelledby="UserFollowingListModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="UserFollowingListModalTitle">Following
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="see_users_likes">
+                            {% for following in users.following.all %}
+                                <div class="media">
+                                    <a class="media-left" href="{% url 'christianbase_userprofile' following.username %}">
+                                        <img class="media-object" src="
+                                        {% if following.profile.image %}
+                                            {{ following.profile.image.url }}
+                                        {% else %}
+                                            /static/images/default.png
+                                        {% endif %}
+                                        " width="100" alt="{{ following.username }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="media-heading">{{ following.username }}</div>
+                                        <span>{{ following.get_full_name }}</span>
+                                        <a href="{% url 'christianbase_userprofile' following.username %}" class="btn btn-secondary btn-sm">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    // Follow User scripts is in base.html
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 150;
+        if ($(window).scrollTop() > margin && empty_page == false &&
+        block_request == false) {
+            block_request = true;
+            page += 1
+            $.get('?page=' + page, function(data) {
+                if (data == '') {
+                   empty_page = true;
+                }
+                else {
+                    block_request = false;
+                    $('#infinite-container').append(data)
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

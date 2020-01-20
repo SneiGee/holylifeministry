@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {% if add_devotion %}{{ title }} {% else %} {{ title }} - {{ devotions.title }} {% endif %} - Devotion | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="bg-white p-30 box-shadow">
+
+                    <div class="user_setting">
+                        <form method="post" action="" id="bible-studies" enctype="multipart/form-data" data-parsley-validate data-url="{{ request.build_absolute_url|safe }}" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.title|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                <div id="div_id_featured_image" class="form-group">
+                                    <label for="id_featured_image" class="col-form-label ">
+                                        Featured image
+                                    </label>
+                                    <div class="">
+                                        <div class="custom-file">
+                                            {% if devotions.featured_image %}
+                                                <input type="file" name="featured_image" value="{{ form.featured_image.value }}" accept="image/*" class="custom-file-input form-control clearablefileinput" id="id_featured_image">
+                                                <label class="custom-file-label" for="id_featured_image">
+                                                    {{ form.featured_image.value }}
+                                                </label>
+                                                <!-- <input type="file" name="featured_image" accept="image/*" class="form-control clearablefileinput" data-parsley-maxlength="100" data-parsley-maxlength-message="" id="id_featured_image"> -->
+                                                <small id="hint_id_featured_image" class="form-text text-muted">
+                                                    Include a high-quality image in your story to make it more inviting to readers.
+                                                </small>
+                                            {% else %}
+                                                <input type="file" name="featured_image" accept="image/*" class="custom-file-input form-control clearablefileinput" id="id_featured_image" required>
+                                                <label class="custom-file-label" for="id_featured_image">
+                                                    Choose high quality image...
+                                                </label>
+                                                <!-- <input type="file" name="featured_image" accept="image/*" class="form-control clearablefileinput" data-parsley-maxlength="100" data-parsley-maxlength-message="" id="id_featured_image"> -->
+                                                <small id="hint_id_featured_image" class="form-text text-muted">
+                                                    Include a high-quality image in your story to make it more inviting to readers.
+                                                </small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.content|as_crispy_field }}
+                            </div>
+                            <button type="submit" class="btn mag-btn mt-30">{% if add_devotion %}Add{% else %}Update{% endif %} Devotion</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $('.custom-file-input').on('change', function() {
+       let fileName = $(this).val().split('\\').pop();
+       $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>
+<script type="text/javascript">
+</script>
+{% endblock %}

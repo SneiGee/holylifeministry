@@ -1,0 +1,107 @@
+{% load filters %}
+
+{% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
+    <!-- Sidebar Widget -->
+    {% user_categories_list as categories_list %}
+    {% if categories_list %}
+    <div class="single-sidebar-widget p-30">
+        <!-- Section Title -->
+        <div class="section-heading">
+            <h5>Topic / Categories</h5>
+        </div>
+        <!-- Catagory Widget -->
+        <ul class="catagory-widgets">
+            {% for category in categories_list %}
+            <li>
+                <a href="{% url 'christianbase_category_story' category.slug %}">
+                    <span><i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ category }}</span>
+                    <span>
+                        {% if category.category_posts %}{{ category.category_posts|human_format }} post{{ category.category_posts|pluralize }}
+                        {% else %}no post
+                        {% endif %}
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% endif %}
+
+
+<!-- Sidebar Widget -->
+<div class="single-sidebar-widget p-30">
+    {% popular_post as latest_posts %}
+    {% if latest_posts %}
+        <!-- Section Title -->
+        <div class="section-heading">
+            <h5>Trending now</h5>
+        </div>
+        {% for popular in latest_posts %}
+        <!-- Single Blog Post -->
+        <div class="single-blog-post d-flex">
+            <div class="post-thumbnail">
+                <a href="{{ popular.get_absolute_url }}">
+                    <img src="{{ popular.featured_image.url }}" alt="">
+                </a>
+            </div>
+            <div class="post-content">
+                <a href="{{ popular.get_absolute_url }}" class="post-title">{{ popular.title }}</a>
+                <!-- <div class="post-meta d-flex justify-content-between">
+                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{ popular.hit_count }}</a>
+                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ popular.total_likes }}</a>
+                    <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> {{ popular.total_post_comments }}</a>
+                </div> -->
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+</div>
+<!--    end   -->
+
+<!-- Advert - Banner with image. -  Sidebar Widget -->
+<div class="single-sidebar-widget">
+    <a href="#" class="add-img"><img src="/static/images/add2.png" alt=""></a>
+</div>
+<!--  end sidebar widgets...  -->
+
+<!-- Sidebar Widget -->
+{% who_to_follow as know_follower %}
+{% if know_follower %}
+<div class="single-sidebar-widget p-30">
+    <!-- Section Title -->
+    <div class="section-heading">
+        <h5>Who to follow</h5>
+    </div>
+    {% for follow_users in know_follower %}
+        {% if request.user not in follow_users.followers.all %}
+        <!-- Single YouTube Channel -->
+        <div class="single-youtube-channel d-flex">
+            <div class="youtube-channel-thumbnail">
+                <a href="{% url 'christianbase_userprofile' follow_users.username %}">
+                    <img src="
+                    {% if follow_users.profile.image %}
+                       {{ follow_users.profile.image.url }}
+                    {% else %}
+                       /static/images/default.png
+                    {% endif %}
+                    " alt="{{ follow_users.get_full_name }}">
+                </a>
+            </div>
+            <div class="youtube-channel-content">
+                <a href="{% url 'christianbase_userprofile' follow_users.username %}" class="channel-title">{{ follow_users.username }}</a>
+                <a href="#" data-id="{{ follow_users.id }}" data-action="{% if request.user in follow_users.followers.all %}un{% endif %}follow" class="follow btn subscribe-btn">
+                    {% if request.user not in follow_users.followers.all %}
+                        Follow
+                    {% else %}
+                        Following
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+{% endif %}

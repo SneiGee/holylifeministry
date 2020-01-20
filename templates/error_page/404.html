@@ -1,0 +1,43 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Holy Life Ministry is an online publishing platform, where words matter, smart voices and original ideas take center stage.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Holy Life Ministry</title>
+
+    <!-- FAVICONS  -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/icon_144.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/icon_114.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/icon_72.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo_icon1.png' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/error_style_404.css' %}">
+</head>
+<body>
+
+        <div class="wrapper404">
+            <h1>Page not found.</h1>
+            <p>
+                Uh oh, we can’t seem to find the page you’re looking for.
+                Try going back to the previous page or see our Help Center for more information
+            </p>
+            <div class="buttons">
+                <!-- <a href="#">back</a> -->
+                <a href="{% url 'home' %}">home page</a><br/>
+                <br><br>
+            </div>
+        </div>
+        <div class="space">
+            <div class="blackhole"></div>
+            <div class="ship"></div>
+        </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+
+{% block title %}
+   {{ policy.title }} - {{ policy.user.get_full_name }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+<br>
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="single-video-area bg-white mb-30 box-shadow">
+                   <img src="{{ policy.featured_image.url }}" class="iframe" alt="Story Banner">
+                    <!-- Video Meta Data -->
+                    <div class="video-meta-data d-flex align-items-center justify-content-between">
+                        <h6 class="total-views"><i class="fa fa-eye" aria-hidden="true"></i> {{ policy.hit_count|human_format }} Views</h6>
+                        <div class="like-dislike d-flex align-items-center">
+                            {% include 'liked/like_section.html' %}
+                            <p>
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> {{ comments.count|human_format }} Comment{{ comments.count|pluralize }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                {% if policy %}
+                <div class="post-details-content bg-white mb-30 p-30 box-shadow">
+                    <div class="blog-content">
+
+                        <div class="post-meta">
+                            <a class="post-meta-a">{{ policy.created_on|date:'F d, Y' }}</a>
+
+                            <div class="story_detail_btn">
+                                {% if policy.user == user %}
+                                    <a href="{% url 'policy-edit' policy.slug policy.policy_hex %}">
+                                        <button class="btn btn-outline-secondary btn-sm mt-1 mb-1" data-toggle="tooltip" title="Edit story">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <button class="btn btn-outline-info btn-sm mt-1 mb-1" data-toggle="modal" data-target="#ArchiveStoryModal" rel="tooltip" data-toggle="tooltip" title="Archive story">
+                                        <i class="fa fa-archive"></i>
+                                    </button>
+                                    <!-- <button class="btn btn-outline-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#MoveToTrashModal" rel="tooltip" data-toggle="tooltip" title="Move to trash">
+                                        <i class="fa fa-trash"></i>
+                                    </button> -->
+                                {% endif %}
+                            </div>
+                        </div>
+                        <h4 class="post-title">
+                            {{ policy.title }}
+                        </h4>
+                        <!--  Story content  -->
+                        <p>
+                            {{ policy.content|safe }}
+                        </p>
+
+                        <!--  Story Tags  -->
+                        <div class="story-tags">
+                            <ul class="tags">
+                                {% for story_tags in policy.tags.all %}
+                                   <li><a href="#" class="tag">{{ story_tags }}</a></li>
+                               {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Like Dislike Share -->
+                        <div class="like-dislike-share">
+
+                            <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
+                            <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
+                            <div class="share">
+                                {% if not request.user == policy.user %}
+                                    {% if request.user.is_authenticated %}
+                                        {% include 'story/bookmarks/bookmark_section.html' %}
+                                    {% endif %}
+                                {% endif %}
+                                <!-- <span>Share</span> -->
+                            </div>
+                        </div>
+
+                        <!-- Post Author -->
+                        <div class="post-author d-flex align-items-center">
+                            <div class="post-author-thumb">
+                                <img src="
+                                {% if policy.user.profile.image %}
+                                   {{ policy.user.profile.image.url }}
+                                {% else %}
+                                   /static/images/default.png
+                                {% endif %}
+                                " alt="{{ policy.user.get_full_name }}">
+                            </div>
+                            <div class="post-author-desc pl-4">
+                                <!-- <a href="#" class="">Written by</a> -->
+                                <div class="author-name">
+                                    <a href="{% url 'christianbase_userprofile' policy.user.username %}" class="">{{ policy.user.get_full_name }}</a>
+                                    {% if request.user == policy.user %}
+                                    <a href="{% url 'christianbase_userprofile' policy.user.username %}" class="btn btn-secondary btn-sm author-follow-btn ml-1">View Profile</a>
+                                    {% else %}
+                                    <a href="#" data-id="{{ policy.user.id }}" data-action="{% if request.user in policy.user.followers.all %}un{% endif %}follow" class="follow btn btn-secondary btn-sm author-follow-btn ml-1">
+                                        {% if request.user not in policy.user.followers.all %}
+                                           Follow
+                                        {% else %}
+                                           Following
+                                        {% endif %}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <p>
+                                    {% if policy.user.profile.bio %}
+                                       {{ policy.user.profile.bio }}
+                                    {% else %}
+                                       New to HolyLifeMinistry
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if related_storys %}
+                    <!-- Related Post Area -->
+                    <div class="related-post-area bg-white mb-30 px-30 pt-30 pb-0 box-shadow">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>Related Post</h5>
+                        </div>
+
+                        <div class="row">
+                            {% for story in related_storys %}
+                                <!-- Single Blog Post -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="single-blog-post style-4 mb-30">
+                                        <div class="post-thumbnail">
+                                           <a href="{{ story.get_absolute_url }}" title="{{ story.title }}">
+                                            <img src="{{ story.featured_image.url }}" alt="{{ story.user.get_full_name }} story">
+                                           </a>
+                                        </div>
+                                        <div class="post-content">
+                                            <a href="{{ story.get_absolute_url }}" class="post-title">
+                                                {{ story.title }}
+                                            </a>
+                                            <div class="post-meta d-flex">
+                                                <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{ story.hit_count|human_format }}</a>
+                                                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ story.total_likes|human_format }}</a>
+                                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> {{ story.total_post_comments|human_format }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="main-comment-section">
+                <!--   comments   -->
+                {% include 'comments/policy_comments.html' %}
+                <!--   end comments  -->
+                </div>
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    {% include 'includes/story_detail_right_sidebar.html' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+
+
+<!-- See Who Like This  Modal -->
+<div class="modal fade" id="SeeWhoLikeThisModal" tabindex="-1" role="dialog" aria-labelledby="SeeWhoLikeThisModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="SeeWhoLikeThisModalModalTitle">Likes
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="see_users_likes">
+                            {% for user_like in policy.likes.all %}
+                                <div class="media">
+                                    <a class="media-left" href="{% url 'christianbase_userprofile' user_like.username %}">
+                                        <img class="media-object" src="
+                                        {% if user_like.profile.image %}
+                                           {{ user_like.profile.image.url }}
+                                        {% else %}
+                                           /static/images/default.png
+                                        {% endif %}
+                                        " width="100" alt="{{ user_like.username }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="media-heading">{{ user_like.username }}</div>
+                                        <span>{{ user_like.get_full_name }}</span>
+                                        <a href="{% url 'christianbase_userprofile' user_like.username %}" class="btn btn-secondary btn-sm">
+                                            See Profile
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+
+<!-- Move To Trash  Modal -->
+<div class="modal fade" id="ArchiveStoryModal" tabindex="-1" role="dialog" aria-labelledby="ArchiveStoryModalTitle"
+  aria-hidden="true">
+
+    <!-- Move story to trash .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+            <form method="post" action="" id="archive_story" data-url="{{ request.build_absolute_url|safe }}">
+                <div class="modal-body permanant_delete-modal">
+                    <p>
+                        Archive story
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </p>
+                    <p>
+                        Doing this will put this story into private mood and mean only you can see it.
+                    </p>
+                    <p style="display: none;">
+                        <!-- <a href="" class="feedback">
+                            Please tell us why you leaving!
+                        </a> -->
+                    </p>
+                    <p>
+                        <a href="{% url 'make-policy-archive' policy.slug %}" class="permanant_delete">
+                            Yes! Continue
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" data-dismiss="modal">
+                           Cancel
+                        </a>
+                    </p>
+                </div>
+            </form>
+            <!-- <div class="modal-footer profile-modal-footer">
+                <a href="#" data-dismiss="modal">Close</a>
+            </div> -->
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+<!-- Move To Trash  Modal -->
+<div class="modal fade" id="MoveToTrashModal" tabindex="-1" role="dialog" aria-labelledby="MoveToTrashModalTitle"
+  aria-hidden="true">
+
+    <!-- Move story to trash .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+            <form method="post" action="" id="move_story_to_trash" data-url="{{ request.build_absolute_url|safe }}">
+                <div class="modal-body permanant_delete-modal">
+                    <p>
+                        Move story to trash
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </p>
+                    <p>
+                        Your story will move to trash and you can restore it later.
+                    </p>
+                    <p style="display: none;">
+                        <!-- <a href="" class="feedback">
+                            Please tell us why you leaving!
+                        </a> -->
+                    </p>
+                    <p>
+                        <a href="" class="permanant_delete">
+                            Yes, Continue
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" data-dismiss="modal">
+                           Cancel
+                        </a>
+                    </p>
+                </div>
+            </form>
+            <!-- <div class="modal-footer profile-modal-footer">
+                <a href="#" data-dismiss="modal">Close</a>
+            </div> -->
+        </div>
+        <!--   end modal-content  -->
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        // tooltips
+        $(document).ready(function(){
+            $('[rel="tooltip"]').tooltip({trigger: "hover"});
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on('click', '#like', function(event){
+            event.preventDefault(event);
+            var pk = $(this).attr('value');
+            $.ajax({
+                type: 'POST',
+                url: '{% url "policy_like_post" %}',
+                data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: 'json',
+                success: function(response){
+                   $('#like-section').html(response['form'])
+                   console.log($('#like-section').html(response['form']));
+                },
+                error: function(rs, e){
+                   console.log(rs.responseText);
+                },
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).on('click', '#bookmarks', function(event){
+            event.preventDefault(event);
+            var pk = $(this).attr('value');
+            $.ajax({
+                type: 'POST',
+                url: '{% url "bookmarks_policy" %}',
+                data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: 'json',
+                success: function(response){
+                   $('#bookmarks_policy').html(response['form'])
+                   console.log($('#bookmarks_policy').html(response['form']));
+                },
+                error: function(rs, e){
+                   console.log(rs.responseText);
+                },
+            });
+        });
+    </script>
+
+{% endblock %}

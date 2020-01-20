@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {% if add_category %}
+       {{ title }} | {{ block.super }}
+   {% else %}
+       {{ title }} | {{ block.super }}
+   {% endif %}
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<!-- <section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/logoutHeader.png);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Resend activation link</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="bg-white p-30 box-shadow">
+
+                    <div class="category-area">
+                        <ul>
+                            {% if not add_category %}
+                                <li><a href="{% url 'christianbase_add_category' %}" class="">Go back!</a></li>
+                            {% else %}
+                                {% if user_categories_list %}
+                                    {% for user_categories in user_categories_list %}
+                                        <li><a href="{% url 'christianbase_update_category' user_categories.slug %}" class="">{{ user_categories.name }}</a></li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>You've no topic / category</li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <br>
+
+                    <div class="user_setting">
+                        <form method="post" action="" id="new_category_create" enctype="multipart/data" data-parsley-validate data-url="{{ request.build_absolute_url|safe }}" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.name|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
+
+                            <button type="submit" class="btn mag-btn mt-30">
+                               {% if add_category %} Add Topic / Category{% else %} Update Topic / Category {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#').submit(function(event) {
+            event.preventDefault();
+            var form = $(event.target);
+            $.post(form.attr("action"), form.serialize(), function(data) {
+
+                //alert(data['response']);
+                $('#messages').html(
+                    "<div class='alert alert-success alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                    + data.response +
+                   "</div>"
+                );
+                // once form save refresh page!
+                setTimeout("window.location.href='{% url 'christianbase_userprofile_edit' user.username %} '", 3500 );
+
+                console.log(data.response);
+
+            }, 'json');
+        });
+    });
+</script>
+{% endblock %}

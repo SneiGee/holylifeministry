@@ -1,0 +1,46 @@
+{% load filters %}
+
+{% if my_authors_story %}
+    {% for authors_story in my_authors_story %}
+        <div class="infinite-item archive-posts-area bg-white p-30 mb-30 box-shadow">
+            <!-- Single Catagory Post -->
+            <div class="single-catagory-post d-flex flex-wrap">
+                <!-- Thumbnail -->
+                {% if authors_story.featured_image %}
+                    <div class="post-thumbnail bg-img">
+                        <a href="{{ authors_story.get_absolute_url }}">
+                            <img src="{{ authors_story.featured_image.url }}" alt="Story Image">
+                        </a>
+                    </div>
+                {% endif %}
+
+                <!-- Post Contetnt -->
+                <div class="post-content">
+                    <div class="post-meta">
+                        <a href="{{ authors_story.get_absolute_url }}">{{ authors_story.created_on|date:'F d, Y' }}</a>
+                        {%if authors_story.category %}
+                            <a href="{% url 'christianbase_category_story' authors_story.category.slug %}">{{ authors_story.category }}</a>
+                        {% endif %}
+                    </div>
+                    <a href="{{ authors_story.get_absolute_url }}" class="post-title">
+                        {{ authors_story.title }}
+                    </a>
+                    <!-- Post Meta -->
+                    <div class="post-meta-2">
+                        <a><i class="fa fa-eye" aria-hidden="true"></i> {{ authors_story.hit_count|human_format }}</a>
+                        <a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ authors_story.total_likes|human_format }}</a>
+                        <a><i class="fa fa-comments-o" aria-hidden="true"></i> {{ authors_story.total_post_comments|human_format }}</a>
+                    </div>
+                    <p>
+                        {{ authors_story.content|safe|truncatewords:'12' }}
+                        <a href="{{ authors_story.get_absolute_url }}" class="read-more">read more</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="no-story-yet">
+       No stories to display...!.
+    </p>
+{% endif %}
