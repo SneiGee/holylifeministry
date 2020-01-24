@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {{ title }} - Holy Life Ministry Help Center
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/banner2.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h5 class="help-section">What can we help you with?</h5><br>
+                    <div class="col-12">
+                        <form action="{% url 'search_helpcenter' %}" method="get">
+                            <div class="input-group">
+                                <input type="search" class="form-control" name="query" id="id_query" placeholder="Type your questions here" value="{% if query %}{{ query }}{% endif %}">
+                                <div class="input-group-append">
+                                  <button class="btn btn-search" type="submit">
+                                    <i class="fa fa-search"></i>
+                                  </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<section class="post-details-area">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12">
+                <!-- Post A Comment Area -->
+                <div class="archive-posts-area p-30 mb-30">
+                    {% if query %}
+                        <div class="total-results">
+                            {% with results.count as total_results %}
+                                {{ total_results }} result{{ total_results|pluralize }} for "{{ query }}"
+                            {% endwith %}
+                        </div>
+                        {% for article in results %}
+
+                            <!-- Single Topic.Catagory Story -->
+                            <div class="search-help">
+                                <div class="search-results">
+                                    <h5 class="article-search-title">
+                                        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                    </h5>
+
+                                    <p>{{ article.content|safe|truncatewords:10 }}</p>
+                                </div>
+                            </div>
+
+                        {% empty %}
+                           <p class="no-story-yet">
+                               Sorry! no results found, Try again.
+                           </p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-story-yet">
+                           Hey!!! Ask me anything & I'll find something quick for you....!
+                       </p>
+                    {% endif %}
+                </div>
+
+                <p>
+                    <a href="{% url 'help_homepage' %}"><i class="fa fa-arrow-left"> go back</i></a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+
+{% endblock %}

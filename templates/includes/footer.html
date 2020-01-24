@@ -12,9 +12,12 @@
                         <img src="{% static 'images/logo_text1.png' %}" alt="Holy Life Ministry">
                     </a>
                     <p>
-                        Ultimately, we believe that the purpose of life is to know and glorify God through an authentic
+                        <!-- Ultimately, we believe that the purpose of life is to know and glorify God through an authentic
                         relationship with His Son, Jesus Christ. This purpose is lived out first within our own families
-                        then extended, in love, to an increasingly broken world that desperately needs Him.
+                        then extended, in love, to an increasingly broken world that desperately needs Him. -->
+                        With the power of the network, different ways to engage with stories, and the ability to follow your
+                        favorite topics, and writers, you’re in control of your reading experience. So the stories
+                        that matter most to you are always at your fingertips.
                     <div class="footer-social-info">
                         <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                         <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
@@ -92,8 +95,8 @@
                     <nav class="footer-nav">
                         <ul>
                             <li><a href="#">Blog</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'help_homepage' %}">Help</a></li>
                             <li><a href="#">Terms</a></li>
                             <li><a href="#">Privacy</a></li>
                         </ul>

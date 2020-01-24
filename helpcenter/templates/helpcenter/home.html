@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   Holy Life Ministry Help Center
+{% endblock %}
+
+{% block content %}
+ <!-- ##### Breadcrumb Area Start ##### -->
+<section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/static/images/backgrounds/banner2.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h5 class="help-section">What can we help you with?</h5><br>
+                    <div class="col-12">
+                        <form action="{% url 'search_helpcenter' %}" method="get">
+                            <div class="input-group">
+                                <input type="search" class="form-control" name="query" id="id_query" placeholder="Type your questions here" value="{% if query %}{{ query }}{% endif %}">
+                                <div class="input-group-append">
+                                  <button class="btn btn-search" type="submit">
+                                    <i class="fa fa-search"></i>
+                                  </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="login-content p-30">
+                    <!-- Section Title -->
+                    <div class="row">
+                        {% if help_center %}
+                            {% for help in help_center %}
+                            <div class="col-12 col-lg-4">
+                                <h5 class="help-title">{{ help.name }}</h5>
+                                {% for hc in help.helpcenter_set.all %}
+                                <ul class="help-link">
+                                    <li><a href="{{ hc.get_absolute_url }}">{{ hc.title }}</a></li>
+                                </ul>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                            <br>
+                        {% else %}
+                            <div class="col-12 text-center">
+                                Oops! No documentation here! we're working on it..!
+                            </div>
+                        {% endif %}
+                    </div>
+                    <br><br>
+
+                    <div class="help-submit p-30 box-shadow">
+                        <h5>Can't find what you're looking for?</h5><br>
+                        <a href="{% url 'submit_request' %}" class="btn mag-btn">Submit a request</a>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load filters %}
+
+<!-- Sidebar Widget -->
+<div class="single-sidebar-widget p-30">
+    <!-- Section Title -->
+    <div class="section-heading">
+        <h5>Articles in this section</h5>
+    </div>
+    <!-- Catagory Widget -->
+    <ul class="catagory-widgets">
+        {% for section in article_section %}
+        <li>
+            <a href="{% url 'articles_detail' section.help_hex %}">
+                <span><i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ section.title }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<!--    end   -->
+
+<!-- Advert - Banner with image. -  Sidebar Widget -->
+<div class="single-sidebar-widget">
+    <a href="#" class="add-img"><img src="/static/images/add2.png" alt=""></a>
+</div>
+<!--  end sidebar widgets...  -->

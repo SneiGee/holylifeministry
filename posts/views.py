@@ -796,7 +796,7 @@ class ChristianbaseBookmarkStoriesView(TitleContextMixin, ListView):
         user = self.request.user
         favourite = Post.objects.filter(favourite=user).annotate(total_post_comments=Count('comment'))
         bookmarks = Policy.objects.filter(bookmarks=user).annotate(total_post_comments=Count('commentspolicy'))
-        story = sorted(chain(favourite, bookmarks))
+        story = sorted(chain(favourite, bookmarks), key=lambda objects: objects.created_on, reverse=True)
         all_story = story
         return all_story
 
@@ -2138,3 +2138,5 @@ def handler404(request, exception):
 def handler500(request):
     # handler 404 error page...
     return render(request, "error_page/500.html", status=500)
+
+

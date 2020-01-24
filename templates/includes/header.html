@@ -8,6 +8,36 @@
             <a href="{% url 'home' %}" class="nav-brand"><img src="{% static 'images/logo_text1.jpg' %}" alt="Christianbase Logo"></a>
             <a href="{% url 'home' %}" class="nav-brand2"><img src="{% static 'images/logo_icon1.png' %}" alt="Christianbase Logo"></a>
 
+            {% if helpcenter %}
+
+                <div class="top-meta-data d-flex align-items-center">
+                    {% if request.user.is_authenticated %}
+                    <div class="HelpCenterNav">
+                        <ul>
+                            <li><a href="{% url 'submit_request' %}" class="">Submit a request</a></li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'christianbase_userprofile' user.username %}" class="account-profile"><i class="fa fa" aria-hidden="true"></i>
+                        <img src="
+                        {% if user.profile.image %}
+                            {{ user.profile.image.url }}
+                        {% else %}
+                           /static/images/default.png
+                        {% endif %}
+                        " alt="{{ user.get_full_name }}" width="50" height="50">
+                    </a>
+                    <!-- <a href="{% url 'login' %}" class="login-btn"><i class="fa" aria-hidden="true"></i>Submit a request</a> -->
+                    {% else %}
+
+                    <div class="HelpCenterNav">
+                        <ul>
+                            <li><a href="{% url 'submit_request' %}" class="">Submit a request</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
             <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
                 <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -174,6 +204,7 @@
                     {% endif %}
                 </div>
             </div>
+            {% endif %}
         </nav>
     </div>
 </div>

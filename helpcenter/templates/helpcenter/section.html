@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {{ section }} | Holy Life Ministry Help Center
+{% endblock %}
+
+{% block content %}
+
+<!-- ##### Breadcrumb Area Start ##### -->
+<div class="mag-breadcrumb py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'help_homepage' %}">H.L.M Help center</a></li>
+                        <li class="breadcrumb-item" aria-current="page">{{ section }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                <div class="post-details-content mb-30 p-30">
+                    <div class="blog-content">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="help-title">{{ section }}</h5>
+                                <hr><br>
+                                <ul class="help-link">
+                                    {% for section in sections %}
+                                    <li><a href="{{ section.get_absolute_url }}">{{ section.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area mb-30">
+                    {% include 'includes/sidebar.html' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Post Detail Area End --  -->
+
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}

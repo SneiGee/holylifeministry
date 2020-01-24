@@ -1,0 +1,104 @@
+/*  Help Center  */
+.HelpCenterNav {
+    /*position: relative;*/
+}
+.HelpCenterNav ul {
+    /*width: 100%;*/
+    overflow: hidden;
+}
+.HelpCenterNav ul li {
+    /*margin: 0;*/
+    margin-right: 40px;
+    display: inline-block;
+    list-style: none;
+    clear: both;
+    z-index: 10;
+    text-transform: uppercase;
+    text-align: center;
+}
+.help-section {
+    font-family: serif;
+    font-size: 30px;
+    color: #fff;
+}
+
+@media only screen and (max-width: 400px) {
+    .HelpCenterNav ul li {
+        margin-right: 45px;
+        display: inline;
+    }
+}
+
+.help-title {
+    font-size: 25px;
+    color: #777777;
+    font-family: serif;
+    margin-bottom: 10px;
+}
+.help-link li {
+    list-style: none;
+    margin-bottom: 5px;
+}
+.help-link li a, .moreQuestion a {
+    color: #ed3974;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+.help-link li a:hover, .moreQuestion a:hover {
+    color: #000;
+}
+
+.help-submit {
+    position: relative;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.help-submit h5 {
+    font-family: serif;
+    font-size: 25px;
+    text-align: center;
+}
+.help-submit a {
+    font-family: serif;
+}
+
+/*  Help Center Search  */
+.total-results {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+.search-results {
+    position: relative;
+}
+.article-search-title a {
+    font-size: 21px;
+    font-family: serif;
+    font-weight: 400px;
+    color: #ed3974;
+}
+.article-search-title a:hover {
+    color: #000;
+}
+.search-results p {
+    font-size: 12px;
+    color: #000;
+}
+
+
+/*  About Page  */
+.about-sect {
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.about-sect h5 {
+    font-size: 35px;
+    font-family: serif;
+    font-weight: 500px;
+}
+.about-sect p {
+    font-size: 20px;
+    font-family: serif;
+    line-height: 30px;
+}

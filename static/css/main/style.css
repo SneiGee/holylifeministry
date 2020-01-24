@@ -268,13 +268,15 @@ img {
   z-index: 1;
   margin-bottom: 30px;
   background-color: #f2f4f5;
-  padding: 10px 25px;
+  padding: 10px 12px;
   border-left: 4px solid #ed3974;
 }
 .section-heading h5 {
   margin-bottom: 0;
-  text-transform: uppercase;
-  font-size: 20px;
+  /*text-transform: capitalize;*/
+  font-size: 22px;
+  font-weight: 600px;
+  font-family: sans-serif;
   line-height: 1;
 }
 @media only screen and (max-width: 767px) {
@@ -356,7 +358,8 @@ input:focus {
 }
 
 #div_id_website label, #div_id_facebook_url label, #div_id_youtube_url label, #div_id_instagram_url label,
-#div_id_linkedin_url label, #div_id_twitter_url label, #div_id_area label, #div_id_message label {
+#div_id_linkedin_url label, #div_id_twitter_url label, #div_id_area label, #div_id_message label, #div_id_status label,
+#div_id_description label {
   display: block;
 }
 

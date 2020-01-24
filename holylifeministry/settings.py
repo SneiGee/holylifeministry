@@ -29,7 +29,7 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*', '172.105.77.116']
+ALLOWED_HOSTS = ['*']
 
 
 AUTHENTICATION_BACKENDS = (
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'posts.apps.PostsConfig',
     'track.apps.TrackConfig',
+    'helpcenter.apps.HelpcenterConfig',
 
     # -- third party
     'crispy_forms',
@@ -104,10 +105,10 @@ WSGI_APPLICATION = 'holylifeministry.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'holylifeministry_db',
-        'USER': 'sneigee_holylife',
-        'PASSWORD': 'holy@2020',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'holylifeministry',
+        'USER': 'postgres',
+        'PASSWORD': 'sneigee17',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -150,11 +151,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'gallery')
