@@ -7,7 +7,7 @@ from accounts.decorators import parsleyfy
 
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import ( Post, Tags, Category, STATUS_CHOICE, BibleStudies, Devotion,
+from .models import ( Post, Tags, Category, WrittenBy, STATUS_CHOICE, BibleStudies, Devotion,
     Tech, Quotes, Policy, PrayerRequest, REQUEST_CHOICE, Comment, CommentsBibleStudies, CommentsDevotion, CommentsTech, CommentsQuotes,
     CommentsPolicy,
 )
@@ -90,15 +90,21 @@ class BibleStudiesForm(forms.ModelForm):
         label='Title', max_length=100, required=True,
         error_messages={'required': 'Title field is required.'}
     )
+    written_by = forms.ModelChoiceField(
+        label='Written by Who', queryset=None, required=True, empty_label='Select Author',
+        error_messages={'required': 'Select author who write this story..'}
+    )
 
     class Meta:
         model = BibleStudies
-        fields = ['title', 'content', 'featured_image', ]
+        fields = ['written_by', 'title', 'content', 'featured_image',]
         exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(BibleStudiesForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Bible Studies Title"
+        self.fields['content'].widget.attrs['placeholder'] = "Tell your story..."
+        self.fields['written_by'].queryset = WrittenBy.objects.all()
 
 
 @parsleyfy
@@ -107,15 +113,21 @@ class DevotionForm(forms.ModelForm):
         label='Title', max_length=100, required=True,
         error_messages={'required': 'Title field is required.'}
     )
+    written_by = forms.ModelChoiceField(
+        label='Written by Who', queryset=None, required=True, empty_label='Select Author',
+        error_messages={'required': 'Select author who write this story..'}
+    )
 
     class Meta:
         model = Devotion
-        fields = ['title', 'content', 'featured_image', ]
+        fields = ['written_by', 'title', 'content', 'featured_image',]
         exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(DevotionForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Devotion Title"
+        self.fields['content'].widget.attrs['placeholder'] = "Tell your story..."
+        self.fields['written_by'].queryset = WrittenBy.objects.all()
 
 
 @parsleyfy
@@ -124,15 +136,21 @@ class TechForm(forms.ModelForm):
         label='Title', max_length=100, required=True,
         error_messages={'required': 'Title field is required.'}
     )
+    written_by = forms.ModelChoiceField(
+        label='Written by Who', queryset=None, required=True, empty_label='Select Author',
+        error_messages={'required': 'Select author who write this story..'}
+    )
 
     class Meta:
         model = Tech
-        fields = ['title', 'content', 'featured_image', ]
+        fields = ['written_by', 'title', 'content', 'featured_image', ]
         exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(TechForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Tech Title"
+        self.fields['content'].widget.attrs['placeholder'] = "Tell your story..."
+        self.fields['written_by'].queryset = WrittenBy.objects.all()
 
 
 @parsleyfy
@@ -141,15 +159,21 @@ class QuotesForm(forms.ModelForm):
         label='Title', max_length=100, required=True,
         error_messages={'required': 'Title field is required.'}
     )
+    written_by = forms.ModelChoiceField(
+        label='Written by Who', queryset=None, required=True, empty_label='Select Author',
+        error_messages={'required': 'Select author who write this story..'}
+    )
 
     class Meta:
         model = Quotes
-        fields = ['title', 'content', 'featured_image',]
+        fields = ['written_by', 'title', 'content', 'featured_image', ]
         exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(QuotesForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Quote Title"
+        self.fields['content'].widget.attrs['placeholder'] = "Tell your story..."
+        self.fields['written_by'].queryset = WrittenBy.objects.all()
 
 
 @parsleyfy
@@ -159,18 +183,19 @@ class PolicyForm(forms.ModelForm):
         label='Title', max_length=100, required=True,
         error_messages={'required': 'Title field is required.'}
     )
+    written_by = forms.ModelChoiceField(
+        label='Written by Who', queryset=None, required=True, empty_label='Select Author',
+        error_messages={'required': 'Select author who write this story..'}
+    )
     tags = forms.CharField(
         label="Add or Change tags (up to 5) so readers know what your story is about", max_length=300, required=False,
     )
 
     class Meta:
         model = Policy
-        fields = ['title', 'featured_image', 'content', 'tags', ]
-        exclude = ('tags',)
+        fields = ['written_by', 'title', 'content', 'tags', ]
+        # exclude = ('tags',)
 
-        # widgets = {
-        #     'featured_image': forms.ClearableFileInput(),
-        # }
 
     def __init__(self, user, *args, **kwargs):
         # self.user = kwargs.pop('user', None)
@@ -276,7 +301,7 @@ class QuotesCommentForm(forms.ModelForm):
     )
 
     class Meta:
-        model = CommentsTech
+        model = CommentsQuotes
         fields = ('content',)
 
 @parsleyfy

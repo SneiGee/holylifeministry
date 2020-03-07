@@ -22,7 +22,7 @@ from django.contrib.staticfiles import finders
 
 from .tokens import account_activation_token
 from .decorators import parsleyfy
-from .models import User, Profile, Feedback
+from .models import User, Profile, Feedback, ContactUs, ContactUsSettings
 
 UserModel = get_user_model()
 
@@ -298,7 +298,6 @@ class ChristianBaseForgotPasswordAndUserResendActivationForm(forms.Form):
 
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
         email_message.attach_alternative(body, 'text/html')
-        email_message.attach(logo_data())
         if html_email_template_name is not None:
             html_email = render_to_string(html_email_template_name, context)
             email_message.attach_alternative(html_email, 'text/html')
@@ -356,13 +355,13 @@ class ChristianBaseForgotPasswordAndUserResendActivationForm(forms.Form):
             )
 
 
-def logo_data():
-    """  this fuction read/find logo image directory.  """
-    with open(finders.find('images/logo_text1.png'), 'rb') as f:
-        logo_data = f.read()
-    logo = MIMEImage(logo_data)
-    logo.add_header('Content-ID', '<logo>')
-    return logo
+# def logo_data():
+#     """  this fuction read/find logo image directory.  """
+#     with open(finders.find('images/logo_text1.png'), 'rb') as f:
+#         logo_data = f.read()
+#     logo = MIMEImage(logo_data)
+#     logo.add_header('Content-ID', '<logo>')
+#     return logo
 
 
 @parsleyfy
@@ -676,7 +675,7 @@ class ChristianBaseUserFeedbackForm(forms.ModelForm):
     message = forms.CharField(
         max_length=7000, required=True,
         widget=forms.Textarea(
-            attrs={'placeholder': 'Would you tell us what going on in christianbase?'}
+            attrs={'placeholder': 'Please enter the details of your feedback. A member of our support staff will respond as soon as possible'}
         ),
         error_messages={'required': 'Message field is required.'}
     )
@@ -710,3 +709,58 @@ class ChristianBaseRecoverAccountForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = "Your Username"
         self.fields['email'].widget.attrs['placeholder'] = "Your Email Address"
+
+
+@parsleyfy
+class ContactUsForm(forms.ModelForm):
+    """
+        This form is contact form allow users give emergency issues ( - Contact Us Form  - )
+    """
+    name = forms.CharField(
+        max_length=255, required=True, error_messages={
+            'required': 'Name field is required.',
+        },
+    )
+    subject = forms.CharField(
+        max_length=255, required=True, error_messages={
+            'required': 'Subject field is required.',
+        },
+    )
+    email = forms.EmailField(
+        max_length=255, required=True, error_messages={
+            'required': 'Email field is required.', "invalid": "Invalid email",
+        }
+    )
+    message = forms.CharField(
+        max_length=9000, required=True,
+        widget=forms.Textarea(
+            attrs={'placeholder': 'Your message here?'}
+        ),
+        error_messages={'required': 'Message field is required.'}
+    )
+
+    class Meta:
+        model = ContactUs
+        fields = ['name', 'subject', 'email', 'message', ]
+
+    def __init__(self, *args, **kwargs):
+        super(ContactUsForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = "Your Full Name"
+        self.fields['subject'].widget.attrs['placeholder'] = "Subject / Title"
+        self.fields['email'].widget.attrs['placeholder'] = "Your Email Address"
+
+
+class ContactUsSettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = ContactUsSettings
+        exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(ContactUsSettingsForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            if max(enumerate(iter(self.fields)))[0] != field:
+                self.fields[field].widget.attrs.update({
+                    'class': 'form-control',
+                    "placeholder": "Please enter your " + field.replace('_', ' ').capitalize()
+                })

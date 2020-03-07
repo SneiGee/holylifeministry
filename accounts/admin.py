@@ -22,7 +22,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
-from accounts.models import User, UserRole, Profile, Action, Report, ReportUser
+from accounts.models import User, UserRole, Profile, Action, Report, ReportUser, ContactUs, ContactUsSettings
 
 class CustomUserAdmin(UserAdmin):
     form = UserChangeForm
@@ -47,6 +47,14 @@ class ProfileAdmin(admin.ModelAdmin):
 class UserRoleAdmin(admin.ModelAdmin):
     list_display = ('user', 'role')
 
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'subject', 'email', 'message')
+
+
+class ContactUsSettingsAdmin(admin.ModelAdmin):
+    list_display = ('from_email', 'reply_to_email', 'email_admin')
+
+
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(UserRole, UserRoleAdmin)
@@ -56,3 +64,6 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Report)
 
 admin.site.register(ReportUser)
+
+admin.site.register(ContactUs, ContactUsAdmin)
+admin.site.register(ContactUsSettings, ContactUsSettingsAdmin)

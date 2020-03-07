@@ -48,7 +48,6 @@ class HelpHomePageView(ListView):
     """
     model = Section
     template_name = 'helpcenter/home.html'
-    title = _('')
     context_object_name = 'help_center'
 
     def get_context_data(self, *args, **kwargs):
@@ -63,7 +62,6 @@ class ArticleDetailView(DetailView):
     """
     # model = HelpCenter
     template_name = 'helpcenter/articles_detail.html'
-    title = _('')
     context_object_name = 'articles'
 
     def get_object(self):
@@ -82,7 +80,6 @@ class SectionListView(ListView):
     dsiplay the article info....
     """
     template_name = 'helpcenter/section.html'
-    title = _('')
     context_object_name = 'sections'
 
     def get_queryset(self):
@@ -146,12 +143,11 @@ class SubmitRequestView(TitleContextMixin, CreateView):
         return context
 
 
-class AboutPageView(TitleContextMixin, TemplateView):
+class AboutPageView(TemplateView):
     """
     Display the create new topic / category form and handle the topic action.
     """
     template_name = "about.html"
-    title = _('Welcome to Holy Life Ministry, where ideas are truly born')
 
     def get_context_data(self, **kwargs):
         context = super(AboutPageView, self).get_context_data(**kwargs)

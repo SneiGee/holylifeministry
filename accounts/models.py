@@ -14,6 +14,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from PIL import Image
+from django.urls import reverse
 
 
 from .validators import UnicodeUsernameValidator
@@ -419,15 +420,20 @@ class ContactUs(models.Model):
     def __str__(self):
         return '{}'.format(self.subject)
 
+    def get_absolute_url(self):
+        return reverse('contact-us')
+
+    @property
+    def hit_count(self):
+        url, created = UrlHit.objects.get_or_create(url=self.get_absolute_url())
+        return url.hits
+
 
 class ContactUsSettings(models.Model):
     from_email = models.EmailField()
     reply_to_email = models.EmailField(blank=True, null=True)
     email_admin = models.EmailField()
-    subject = models.CharField(max_length=500)
-    body_user = models.TextField()
-    body_admin = models.TextField()
 
     def __str__(self):
-        return '{}'.format(self.subject)
+        return '{}'.format(self.from_email)
 

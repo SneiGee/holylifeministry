@@ -63,9 +63,26 @@
 
 <!-- Sidebar Widget Advert -->
 <div class="single-sidebar-widget">
-    <a href="#" class="add-img"><img src="/static/images/add2.png" alt=""></a>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- sidebar-AD -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4116402342121729"
+         data-ad-slot="9501218138"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </div>
 <!--  end  -->
+
+<!-- Amazon Sidebar Widget Advert -->
+<div class="single-sidebar-widget">
+    <div id="amzn-assoc-ad-e10e3677-68ce-4800-b018-1caa2c1d24b5"></div>
+    <script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=e10e3677-68ce-4800-b018-1caa2c1d24b5"></script>
+</div>
+<!--  end Amazon Sidebar Advert  -->
 
 
 <!-- Sidebar Widget -->
@@ -93,13 +110,19 @@
             </div>
             <div class="youtube-channel-content">
                 <a href="{% url 'christianbase_userprofile' follow_users.username %}" class="channel-title">{{ follow_users.username }}</a>
-                <a href="#" data-id="{{ follow_users.id }}" data-action="{% if request.user in follow_users.followers.all %}un{% endif %}follow" class="follow btn subscribe-btn">
-                    {% if request.user not in follow_users.followers.all %}
+                {% if request.user.is_authenticated %}
+                    <a href="#" data-id="{{ follow_users.id }}" data-action="{% if request.user in follow_users.followers.all %}un{% endif %}follow" class="follow btn subscribe-btn">
+                        {% if request.user not in follow_users.followers.all %}
+                            Follow
+                        {% else %}
+                            Following
+                        {% endif %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'christianbase_userprofile' follow_users.username %}" class="btn subscribe-btn">
                         Follow
-                    {% else %}
-                        Following
-                    {% endif %}
-                </a>
+                    </a>
+                {% endif %}
             </div>
         </div>
         {% endif %}

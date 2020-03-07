@@ -28,7 +28,7 @@
             <div class="col-12 col-xl-8">
                 <!-- Post A Comment Area -->
                 <div class="archive-posts-area bg-white p-30 mb-30 box-shadow">
-                    {% if request.user.userrole_set.last.role == 'Quotes P' %}
+                    {% if request.user.userrole_set.last.role == 'Tech P' %}
                         <div class="add-new">
                             <a href="{% url 'tech-add' %}">
                                 <i class="fa fa-plus"></i>

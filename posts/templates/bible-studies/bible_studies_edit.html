@@ -79,6 +79,9 @@
                             <div class="form-group">
                                 {{ form.content|as_crispy_field }}
                             </div>
+                            <div class="form-group">
+                                {{ form.written_by|as_crispy_field }}
+                            </div>
                             <button type="submit" class="btn mag-btn mt-30">{% if add_biblestudies %}Add{% else %}Update{% endif %} Bible Studies</button>
                         </form>
                     </div>

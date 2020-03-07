@@ -66,19 +66,26 @@
                             {{ devotions.content|safe }}
                         </p>
 
+                        <!--  Story Tags  -->
+                        <div class="story-tags">
+                            <ul class="tags">
+                                {% for story_tags in devotions.tags.all %}
+                                   <li><a href="#" class="tag">{{ story_tags }}</a></li>
+                               {% endfor %}
+                            </ul>
+                        </div>
+
                         <!-- Like Dislike Share -->
                         <div class="like-dislike-share">
-                            {% with short_url=request.build_absolute_url %}
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{short_url|urlencode}}&t={{devotions.title}}" class="facebook" target="_blank">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://holylifeministry.com{{ request.get_full_path|urlencode }}" class="facebook" target="_blank">
                                 <i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text={{devotions.title}}&url={{short_url}}" class="twitter" target="_blank">
+                            <a href="https://twitter.com/share?url=https://holylifeministry.com&text={{devotions.title}}@HolyLifeMinistry" class="twitter" target="_blank">
                                 <i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter
                             </a>
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{short_url}}&title={{devotions.title}}&summary={{devotions.content|truncatewords:15}}&source=Holy%20Life%20Ministry" class="linkedin" target="_blank">
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://holylifeministry.com" class="linkedin" target="_blank">
                                 <i class="fa fa-linkedin" aria-hidden="true"></i> Share on Linkedin
                             </a>
-                            {% endwith %}
                             <!-- <div class="share">
                                 {% if not request.user == devotions.user %}
                                     {% if request.user.is_authenticated %}
@@ -87,7 +94,39 @@
                                 {% endif %}
                             </div> -->
                         </div>
+                        {% if devotions.written_by %}
+                        <div class="writtenBy">
+                            <h5> Written by</h5>
+                        </div>
+                        <!-- Post Author -->
+                        <div class="post-author d-flex align-items-center">
+                            <div class="post-author-thumb">
+                                <img src="
+                                {% if devotions.written_by.user.profile.image %}
+                                   {{ devotions.written_by.user.profile.image.url }}
+                                {% else %}
+                                   /static/images/default.png
+                                {% endif %}
+                                " alt="{{ devotions.written_by.user.get_full_name }}">
+                            </div>
+                            <div class="post-author-desc pl-4">
+                                <!-- <a href="#" class="">Written by</a> -->
+                                <div class="author-name">
+                                    <a href="{% url 'christianbase_userprofile' devotions.written_by.user.username %}" class="">{{ devotions.written_by.user.get_full_name }}</a>
+                                    <a href="{% url 'christianbase_userprofile' devotions.written_by.user.username %}" class="btn btn-secondary btn-sm author-follow-btn ml-1">View Profile</a>
 
+                                </div>
+                                <p>
+                                    {% if devotions.written_by.user.profile.bio %}
+                                       {{ devotions.written_by.user.profile.bio }}
+                                    {% else %}
+                                       New to HolyLifeMinisry
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- End Post Author -->
+                        {% endif %}
                         <!-- Post Author -->
                         <div class="post-author d-flex align-items-center">
                             <div class="post-author-thumb">
@@ -147,6 +186,43 @@
 </section>
 <!--  Post Detail Area End --  -->
 
+
+<!-- See Who Like This  Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="SeeWhoLikeThisModalModalTitle">Sign In
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="ClikLoginORSignUp">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                                Login
+                            </a>
+
+
+                            <a href="{% url 'create-account' %}" class="btn btn-secondary btn-sm SigUp">
+                                Create account
+                            </a>
+                            <hr>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
 
 
 <!-- See Who Like This  Modal -->

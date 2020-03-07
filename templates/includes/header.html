@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}<!-- Navbar Area -->
 <div class="mag-main-menu" id="sticker">
     <div class="classy-nav-container breakpoint-off">
@@ -14,7 +15,7 @@
                     {% if request.user.is_authenticated %}
                     <div class="HelpCenterNav">
                         <ul>
-                            <li><a href="{% url 'submit_request' %}" class="">Submit a request</a></li>
+                            <li><a href="{% url 'submit_request' %}" class="">{% trans "Submit a request" %}</a></li>
                         </ul>
                     </div>
                     <a href="{% url 'christianbase_userprofile' user.username %}" class="account-profile"><i class="fa fa" aria-hidden="true"></i>
@@ -31,7 +32,7 @@
 
                     <div class="HelpCenterNav">
                         <ul>
-                            <li><a href="{% url 'submit_request' %}" class="">Submit a request</a></li>
+                            <li><a href="{% url 'submit_request' %}" class="">{% trans "Submit a request" %}</a></li>
                         </ul>
                     </div>
                     {% endif %}
@@ -55,51 +56,51 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="active"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
                             <!-- <li><a href="archive.html">Scripture</a></li> -->
-                            <li><a href="{% url 'bible-studies' %}">Bible Studies</a></li>
-                            <li><a href="{% url 'devotion' %}">Devotion</a></li>
-                            <li><a href="{% url 'tech' %}">Tech</a></li>
-                            <li><a href="{% url 'quotes' %}">Quotes</a></li>
-                            <li><a href="#">More</a>
+                            <li><a href="{% url 'bible-studies' %}">{% trans "Bible Studies" %}</a></li>
+                            <li><a href="{% url 'devotion' %}">{% trans "Devotion" %}</a></li>
+                            <li><a href="{% url 'tech' %}">{% trans "Tech" %}</a></li>
+                            <li><a href="{% url 'quotes' %}">{% trans "Quotes" %}</a></li>
+                            <li><a href="#">{% trans "More" %}</a>
                                 <ul class="dropdown">
-                                    <li><a href="{% url 'request-prayer' %}">Prayer Request</a></li>
+                                    <li><a href="{% url 'request-prayer' %}">{% trans "Prayer Request" %}</a></li>
                                 </ul>
                             </li>
                             {% if user.is_authenticated %} <!-- if user is logged in  -->
-                                <li class="Account-P"><a href="#">Account</a>
+                                <li class="Account-P"><a href="#">{% trans "Account" %}</a>
                                     <ul class="dropdown">
                                         <!--  if user is author or admin  -->
                                         {% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
-                                            <li><a href="{% url 'christianbase_new_story' %}">New Story / Article</a></li>
-                                            <li><a href="{% url 'christianbase_user_stories' %}">Stories / Articles</a></li>
-                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
-                                            <li><a href="{% url 'christianbase_add_category' %}">Topic / Category</a></li>
-                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">Bookmarks</a></li>
-                                            <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li>
+                                            <li><a href="{% url 'christianbase_new_story' %}">{% trans "New Story / Article" %}</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">{% trans "Stories / Articles" %}</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">{% trans "Archive" %}</a></li>
+                                            <li><a href="{% url 'christianbase_add_category' %}">{% trans "Topic / Category" %}</a></li>
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">{% trans "Bookmarks" %}</a></li>
+                                            <li><a href="{% url 'christianbase_trash_stories' %}">{% trans "Trash" %}</a></li>
                                         {% else %}
                                             {% if request.user.userrole_set.last.role == 'BS P' %}
-                                            <li><a href="{% url 'bible-studies-add' %}">New Bibles Studies</a></li>
+                                            <li><a href="{% url 'bible-studies-add' %}">{% trans "New Bibles Studies" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Devotion P' %}
-                                            <li><a href="{% url 'devotion-add' %}">New Devotion</a></li>
+                                            <li><a href="{% url 'devotion-add' %}">{% trans "New Devotion" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Tech P' %}
-                                            <li><a href="{% url 'tech-add' %}">New Tech</a></li>
+                                            <li><a href="{% url 'tech-add' %}">{% trans "New Tech" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Quotes P' %}
-                                            <li><a href="{% url 'quotes-add' %}"> New Daily Quote</a></li>
+                                            <li><a href="{% url 'quotes-add' %}"> {% trans "New Daily Quote" %}</a></li>
                                             {% else %}
-                                            <li><a href="{% url 'policy-add' %}"> New Story / Article</a></li>
+                                            <li><a href="{% url 'policy-add' %}"> {% trans "New Story / Article" %}</a></li>
                                             {% endif %}
-                                            <li><a href="{% url 'christianbase_user_stories' %}">My Stories / Article</a></li>
-                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">{% trans "My Stories / Article" %}</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">{% trans "Archive" %}</a></li>
                                             {% if request.user.userrole_set.last.role == 'Policy' %}
-                                            <li><a href="{% url 'christianbase_user_bookmarks' %}"> Bookmarks</a></li>
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}"> {% trans "Bookmarks" %}</a></li>
                                             {% endif %}
                                         {% endif %}
-                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">Profile</a></li>
-                                        <li><a href="{% url 'password_change' user.username %}">Change password</a></li>
-                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">Setting</a></li>
-                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">Feedback</a></li>
-                                        <li><a href="{% url 'christian_logout' %}">Logout</a></li>
+                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">{% trans "Profile" %}</a></li>
+                                        <li><a href="{% url 'password_change' user.username %}">{% trans "Change password" %}</a></li>
+                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">{% trans "Setting" %}</a></li>
+                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">{% trans "Feedback" %}</a></li>
+                                        <li><a href="{% url 'christian_logout' %}">{% trans "Logout" %}</a></li>
                                     </ul>
                                 </li>
                             {% endif %}
@@ -137,36 +138,36 @@
                                     </a>
                                     <ul class="dropdown">
                                         {% if request.user.userrole_set.last.role == 'Author' or request.user.userrole_set.last.role == 'Admin' %}
-                                            <li><a href="{% url 'christianbase_new_story' %}">New Story / Article</a></li>
-                                            <li><a href="{% url 'christianbase_user_stories' %}">Stories / Articles</a></li>
-                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
-                                            <li><a href="{% url 'christianbase_add_category' %}">Topic / Category</a></li>
-                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">Bookmarks</a></li>
-                                            <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li>
+                                            <li><a href="{% url 'christianbase_new_story' %}">{% trans "New Story / Article" %}</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">{% trans "Stories / Articles" %}</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">{% trans "Archive" %}</a></li>
+                                            <li><a href="{% url 'christianbase_add_category' %}">{% trans "Topic / Category" %}</a></li>
+                                            <li><a href="{% url 'christianbase_user_bookmarks' %}">{% trans "Bookmarks" %}</a></li>
+                                            <li><a href="{% url 'christianbase_trash_stories' %}">{% trans "Trash" %}</a></li>
                                         {% else %}
                                             {% if request.user.userrole_set.last.role == 'BS P' %}
-                                                <li><a href="{% url 'bible-studies-add' %}">New Bibles Studies</a></li>
+                                                <li><a href="{% url 'bible-studies-add' %}">{% trans "New Bibles Studies" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Devotion P' %}
-                                                <li><a href="{% url 'devotion-add' %}">New Devotion</a></li>
+                                                <li><a href="{% url 'devotion-add' %}">{% trans "New Devotion" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Tech P' %}
-                                                <li><a href="{% url 'tech-add' %}">New Tech</a></li>
+                                                <li><a href="{% url 'tech-add' %}">{% trans "New Tech" %}</a></li>
                                             {% elif request.user.userrole_set.last.role == 'Quotes P' %}
-                                                <li><a href="{% url 'quotes-add' %}"> New Daily Quote</a></li>
+                                                <li><a href="{% url 'quotes-add' %}"> {% trans "New Daily Quote" }</a></li>
                                             {% else %}
-                                                <li><a href="{% url 'policy-add' %}"> New Policy</a></li>
+                                                <li><a href="{% url 'policy-add' %}"> {% trans "New Policy" %}</a></li>
                                             {% endif %}
-                                            <li><a href="{% url 'christianbase_user_stories' %}">My Stories / Article</a></li>
-                                            <li><a href="{% url 'christianbase_archive_stories' %}">Archive</a></li>
+                                            <li><a href="{% url 'christianbase_user_stories' %}">{% trans "My Stories / Article" %}</a></li>
+                                            <li><a href="{% url 'christianbase_archive_stories' %}">{% trans "Archive" %}</a></li>
                                             {% if request.user.userrole_set.last.role == 'Policy' %}
-                                                <li><a href="{% url 'christianbase_user_bookmarks' %}"> Bookmarks</a></li>
+                                                <li><a href="{% url 'christianbase_user_bookmarks' %}"> {% trans "Bookmarks" %}</a></li>
                                             {% endif %}
                                         {% endif %}
-                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">Profile</a></li>
-                                        <li><a href="{% url 'password_change' user.username %}">Change password</a></li>
-                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">Setting</a></li>
+                                        <li><a href="{% url 'christianbase_userprofile' user.username %}">{% trans "Profile" %}</a></li>
+                                        <li><a href="{% url 'password_change' user.username %}">{% trans "Change password" %}</a></li>
+                                        <li><a href="{% url 'christianbase_user_settings' user.username %}">{% trans "Setting" %}</a></li>
                                         <!-- <li><a href="{% url 'christianbase_trash_stories' %}">Trash</a></li> -->
-                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">Feedback</a></li>
-                                        <li><a href="{% url 'christian_logout' %}">Logout</a></li>
+                                        <li><a href="{% url 'christianbase_user_feedback' user.username %}">{% trans "Feedback" %}</a></li>
+                                        <li><a href="{% url 'christian_logout' %}">{% trans "Logout" %}</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -195,12 +196,12 @@
                                 {% url 'quotes-add' %}
                             {% endif %}
                             " class="submit-video"><span><i class="fa fa-edit"></i></span> <span class="video-text">
-                                New Stories
+                                {% trans "New Stories" %}
                         </span></a>
                     {% else %}
                         <!-- Login -->
-                        <a href="{% url 'login' %}" class="login-btn"><i class="fa" aria-hidden="true"></i>Login</a>
-                        <a href="{% url 'create-account' %}" class="submit-video"><span><i class="fa fa-user-plus"></i></span> <span class="video-text">be a member</span></a>
+                        <a href="{% url 'login' %}" class="login-btn"><i class="fa" aria-hidden="true"></i>{% trans "Login" %}</a>
+                        <a href="{% url 'create-account' %}" class="submit-video"><span><i class="fa fa-user-plus"></i></span> <span class="video-text">{% trans "be a member" %}</span></a>
                     {% endif %}
                 </div>
             </div>

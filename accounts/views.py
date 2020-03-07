@@ -11,7 +11,7 @@ from django.contrib.auth import (
     logout as auth_logout, update_session_auth_hash,
 )
 from django.views.generic.base import TemplateView
-from django.views.generic import UpdateView, View, DeleteView, DetailView
+from django.views.generic import UpdateView, View, DeleteView, DetailView, CreateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
@@ -22,6 +22,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import strip_tags
@@ -29,7 +30,8 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from email.mime.image import MIMEImage
-from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.finders import find
+from django.core.files import File
 
 
 from django.views.decorators.http import require_POST
@@ -37,19 +39,46 @@ from .decorators import ajax_required
 
 from .utils import create_action
 from .tokens import account_activation_token
-from .models import User, UserRole, Profile, Connection, Feedback, Report, ReportUser
+from .models import User, UserRole, Profile, Connection, Feedback, Report, ReportUser, ContactUs, ContactUsSettings
 from posts.models import Post, Category, BibleStudies, Devotion, Tech, Quotes, Policy
 from .forms import (
     UserCreationForm, ChristianBaseAuthenticationForm, ChristianBaseForgotPasswordAndUserResendActivationForm,
     ChristianBaseUserChangeForm, ChristianBaseUserProfileForm, ChristianBaseSetPasswordForm, ChristianBaseChangePasswordForm,
     ChristianBaseUserProfilePhotoForm, ChristianBaseUserSettingForm, ChristianBaseUserFeedbackForm,
-    ChristianBaseRecoverAccountForm,
+    ChristianBaseRecoverAccountForm, ContactUsForm,
 )
 
 from track.views import hit_count
 
 
 UserModel = get_user_model()
+
+
+# def logo_data():
+#     """  this fuction read/find logo image directory.  """
+#     with open(find('images/logo_text1.png'), 'rb') as f:
+#         logo_data = f.read()
+#     logo = MIMEImage(logo_data)
+#     logo.add_header('Content-ID', '<logo>')
+#     return logo
+
+
+# def mail_logo_data():
+#     """  this fuction read/find logo image directory.  """
+#     with open(find('images/logo_text1.png'), 'rb') as f:
+#         logo_data = f.read()
+#     logo = MIMEImage(logo_data)
+#     logo.add_header('Content-ID', '<logo>')
+#     return logo
+
+
+# def teams_data():
+#     """  this fuction read/find logo image directory.  """
+#     with open(find('images/email/teams_logo.jpg'), 'rb') as f:
+#         team_data = f.read()
+#     team_logo = MIMEImage(team_data)
+#     team_logo.add_header('Content-ID', '<team_logo>')
+#     return team_logo
 
 
 def get_user_role(user): # get user role..
@@ -110,8 +139,6 @@ def registration_form(request):
                 mail_subject, to=[to_email]
             )
             send_mail.attach_alternative(html_content, "text/html")
-            send_mail.attach(logo_data())
-            send_mail.attach(teams_data())
             send_mail.send(fail_silently=False)
             # messages.success(request, "Booom...! We've sent you a magic link. Click on the link to activate your account!")
             create_action(user, 'has created account')
@@ -122,24 +149,6 @@ def registration_form(request):
         'form': form,
     }
     return render(request, 'credential/register.html', context)
-
-
-def logo_data():
-    """  this fuction read/find logo image directory.  """
-    with open(finders.find('images/logo_text1.png'), 'rb') as f:
-        logo_data = f.read()
-    logo = MIMEImage(logo_data)
-    logo.add_header('Content-ID', '<logo>')
-    return logo
-
-
-def teams_data():
-    """  this fuction read/find logo image directory.  """
-    with open(finders.find('images/email/teams_logo.jpg'), 'rb') as f:
-        team_data = f.read()
-    team_logo = MIMEImage(team_data)
-    team_logo.add_header('Content-ID', '<team_logo>')
-    return team_logo
 
 
 class ActivateEmailSentView(TemplateView):
@@ -162,7 +171,7 @@ def activate_christianBaseUser(request, uidb64, token):
         UserRole.objects.create(user=user, role='Author')
         myDate = datetime.now()
         current_site = get_current_site(request)
-        mail_subject = 'Welcome To holy Life Ministry,' + str(user.username) + '!'
+        mail_subject = 'Welcome To holy Life Ministry, ' + str(user.username) + '!'
         to_email = user.email  # get user email and send welcome...
         html_content = render_to_string('email/welcome_email_message.html', {
             'user': user,
@@ -174,7 +183,6 @@ def activate_christianBaseUser(request, uidb64, token):
             mail_subject, to=[to_email]
         )
         email.attach_alternative(html_content, "text/html")
-        email.attach(logo_data())
         email.send(fail_silently=False)
         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
         return redirect('login')
@@ -205,7 +213,7 @@ def christianbase_resend_activation(request):
             if user:
                 myDate = datetime.now()
                 current_site = get_current_site(request)
-                mail_subject = 'Activate Your Accounts on Holy Life Ministry' + str(user[0].username) + '!'
+                mail_subject = 'Activate Your Accounts on Holy Life Ministry ' + str(user[0].username) + '!'
                 html_content = render_to_string('email/email_activation.html', {
                     'user': user[0],
                     'domain': current_site.domain,
@@ -217,8 +225,6 @@ def christianbase_resend_activation(request):
                     mail_subject, to=[email]
                 )
                 resend_email.attach_alternative(html_content, "text/html")
-                resend_email.attach(logo_data())
-                resend_email.attach(teams_data())
                 resend_email.send(fail_silently=False)
                 # messages.success(request, "Booom...! We sent your activation link and now you can check your mail to activate your account!!")
                 return redirect('activate_email_sent')
@@ -515,7 +521,6 @@ class ChristianBasePasswordResetConfirmView(PasswordContextMixin, FormView):
                 mail_subject, to=[to_email]
             )
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.send(fail_silently=False)
 
         return super().form_valid(form)
@@ -532,14 +537,6 @@ class ChristianBasePasswordResetConfirmView(PasswordContextMixin, FormView):
             })
         return context
 
-
-def mail_logo_data():
-    """  this fuction read/find logo image directory.  """
-    with open(finders.find('images/logo_text1.png'), 'rb') as f:
-        logo_data = f.read()
-    logo = MIMEImage(logo_data)
-    logo.add_header('Content-ID', '<logo>')
-    return logo
 
 
 class ChristianBasePasswordResetCompleteView(PasswordContextMixin, TemplateView):
@@ -593,7 +590,6 @@ class ChristianBasePasswordChangeView(PasswordContextMixin, FormView):
                 mail_subject, to=[to_email]
             )
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.send(fail_silently=False)
         messages.success(self.request, 'Your Password has been changed!. You can logout and login with your new password.')
         return super().form_valid(form)
@@ -630,15 +626,15 @@ def christianbase_userprofile(request, username):
     if get_user_role(users) == 'Author' or get_user_role(users) == 'Admin':
         user_stories = Post.objects.filter(user=users, status='Published').annotate(total_post_comment=Count('comment')).order_by('-created_on')
     elif get_user_role(users) == 'BS P':
-        user_stories = BibleStudies.objects.filter(user=users, is_active=True).annotate(total_bible_comment=Count('commentsbiblestudies')).order_by('-created_on')
+        user_stories = BibleStudies.objects.filter(user=users, is_active=True).annotate(total_post_comment=Count('commentsbiblestudies')).order_by('-created_on')
     elif get_user_role(users) == 'Devotion P':
-        user_stories = Devotion.objects.filter(user=users, is_active=True).annotate(total_devotion_comment=Count('commentsdevotion')).order_by('-created_on')
+        user_stories = Devotion.objects.filter(user=users, is_active=True).annotate(total_post_comment=Count('commentsdevotion')).order_by('-created_on')
     elif get_user_role(users) == 'Tech P':
-        user_stories = Tech.objects.filter(user=users, is_active=True).annotate(total_tech_comment=Count('commentstech')).order_by('-created_on')
+        user_stories = Tech.objects.filter(user=users, is_active=True).annotate(total_post_comment=Count('commentstech')).order_by('-created_on')
     elif get_user_role(users) == 'Tech P':
-        user_stories = Quotes.objects.filter(user=users, is_active=True).annotate(total_quotes_comment=Count('commentsquotes')).order_by('-created_on')
+        user_stories = Quotes.objects.filter(user=users, is_active=True).annotate(total_post_comment=Count('commentsquotes')).order_by('-created_on')
     else:
-        user_stories = Policy.objects.filter(user=users, is_active=True).annotate(total_quotes_comment=Count('commentspolicy')).order_by('-created_on')
+        user_stories = Policy.objects.filter(user=users, is_active=True).annotate(total_post_comment=Count('commentspolicy')).order_by('-created_on')
 
     # bible studies stories on user profile...
     page = request.GET.get('page', 1)
@@ -820,7 +816,6 @@ def christianbase_temporary_delete(request, username):
                 mail_subject, to=[to_email]
             )
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.send(fail_silently=False)
         messages.warning(request, 'Your account is temporary locked!')
     else:
@@ -853,7 +848,6 @@ class ChristianbasePermanantDeleteUser(View):
                 mail_subject, to=[to_email]
             )
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.send(fail_silently=False)
         messages.warning(request, 'Your account is permanant delete!')
         return HttpResponseRedirect(reverse_lazy('christianbase_sorry_to_see_go'))
@@ -886,6 +880,7 @@ class ChristianbaseUserFeedbackView(TitleContextMixin, FormView):
             if self.request.user:
                 myDate = datetime.now()
                 current_site = get_current_site(self.request)
+                from_email = settings.DEFAULT_FROM_EMAIL
                 mail_subject = 'Thanks for your feedback!'
                 to_email = self.request.user.email  # get user email
                 html_content = render_to_string('email/feedback/feedback_email.html', {
@@ -894,10 +889,9 @@ class ChristianbaseUserFeedbackView(TitleContextMixin, FormView):
                     'myDate': myDate,
                 })
                 resend_email = EmailMultiAlternatives(
-                    mail_subject, to=[to_email]
+                    from_email, mail_subject, to=[to_email]
                 )
                 resend_email.attach_alternative(html_content, "text/html")
-                resend_email.attach(mail_logo_data())
                 resend_email.send(fail_silently=False)
         messages.success(self.request, "Thanks!! for your feedback. we'll check it out and deal with it!")
         return super().form_valid(form)
@@ -919,15 +913,18 @@ def christianbase_recover_account(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             email = form.cleaned_data["email"]
-            user = User.objects.filter(username=username)
+            user = User.objects.filter(username=username, email=email, is_active=False)
 
             if not user.exists():
-                messages.success(request, "Sorry! An error occure. please check your username and email")
+                messages.warning(request, "Sorry! An error occure. please check your username and email")
+
+            # if user.is_active:
+            #     messages.warning(request, "Oops! it seems your account is active, you've trouble login your account!")
 
             if user:
                 myDate = datetime.now()
                 current_site = get_current_site(request)
-                mail_subject = 'Recover your account on Holy Life Ministry, {user[0].username}!'
+                mail_subject = 'Recover your account on Holy Life Ministry, ' + str(user[0].username) + '!'
                 html_content = render_to_string('email/recover_account/recover_account_email.html', {
                     'user': user[0],
                     'domain': current_site.domain,
@@ -939,7 +936,6 @@ def christianbase_recover_account(request):
                     mail_subject, to=[email]
                 )
                 resend_email.attach_alternative(html_content, "text/html")
-                resend_email.attach(mail_logo_data())
                 resend_email.send(fail_silently=False)
                 messages.success(request, "Booom...! We sent you magic link to unlock your account. You can check your inbox!")
                 return redirect('christianbase_recover_account')
@@ -978,7 +974,6 @@ def christianbase_unlocked_account(request, uidb64, token):
             mail_subject, to=[to_email]
         )
         email.attach_alternative(html_content, "text/html")
-        email.attach(mail_logo_data())
         email.send(fail_silently=False)
         messages.success(request, "Great! Your account is unlocked. Now you can login back to your account.")
         return redirect('login')
@@ -986,6 +981,70 @@ def christianbase_unlocked_account(request, uidb64, token):
         # messages.error(request, 'Activation link is broken or invalid.!')
         messages.add_message(request, messages.ERROR, 'OOOPS! Activation link is broken or invalid.!')
         return redirect('invalid_token')
+
+
+class ContactUsCreateView(TitleContextMixin, CreateView):
+    """
+    Display the prayer request form and add
+    """
+    model = ContactUs
+    form_class = ContactUsForm
+    template_name = "contact_us/contact_us.html"
+    context_object_name = 'contact_us'
+    title = _('Contact Us')
+
+    def form_valid(self, form):
+        # self.user = User.objects.filter(user=self.request.user)
+        self.add_contact_us = form.save(commit=False)
+        self.add_contact_us.created = timezone.now()
+        self.add_contact_us.save()
+        # sent mail to request user. ...
+        contact_us = ContactUsSettings.objects.last()
+        self.myDate = datetime.now()
+        self.current_site = get_current_site(self.request)
+        self.sender = form.cleaned_data.get('name')
+        self.subject = form.cleaned_data.get('subject')
+        self.message = form.cleaned_data.get('message')
+        # email to admin
+        self.mail_subject = 'HLM Platform Suggestions! -> "'  + str(self.subject) + '"!'
+        from_email = form.cleaned_data.get("email")
+        self.to_email = contact_us.email_admin  # get sender email
+        html_content = render_to_string('email/contact_us/email_to_admin.html', {
+            'domain': self.current_site.domain,
+            'myDate': self.myDate,
+            'add_contact_us': self.add_contact_us,
+            'sender': self.sender,
+            'subject': self.subject,
+            'from_email': from_email,
+            'message': self.message,
+        })
+        resend_email = EmailMultiAlternatives(
+            self.mail_subject, from_email, to=[self.to_email]
+        )
+        resend_email.attach_alternative(html_content, "text/html")
+        resend_email.send(fail_silently=False)
+        # email to sender or user
+        self.mail_subject = 'Thank you for contacting us - Holy Life Ministry!'
+        from_email = contact_us.from_email
+        self.to_email = form.cleaned_data.get('email')  # get sender email
+        html_content = render_to_string('email/contact_us/email_to_user.html', {
+            'domain': self.current_site.domain,
+            'myDate': self.myDate,
+            'sender': self.sender,
+            'subject': self.subject,
+        })
+        resend_email = EmailMultiAlternatives(
+            self.mail_subject, from_email, to=[self.to_email]
+        )
+        resend_email.attach_alternative(html_content, "text/html")
+        resend_email.send(fail_silently=False)
+        messages.success(self.request, 'Successfully sent!!!')
+        return HttpResponseRedirect(reverse_lazy('contact-us'))
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactUsCreateView, self).get_context_data(**kwargs)
+        context['helpcenter'] = True
+        return context
 
 
 @ajax_required

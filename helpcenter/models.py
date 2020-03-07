@@ -87,8 +87,14 @@ def create_section_slug(tempslug):
             return tempslug
 
 
+def MakeOTP():
+    import random,string
+    allowed_chars = ''.join((string.ascii_letters, string.digits))
+    return ''.join(random.choice(allowed_chars) for _ in range(10))
+
+
 class HelpCenter(models.Model):
-    help_hex = models.CharField(max_length=20, unique=True, editable=False, default=uuid.uuid4().hex[:10])
+    help_hex = models.CharField(max_length=10, unique=True, editable=False, default=MakeOTP)
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
@@ -107,13 +113,14 @@ class HelpCenter(models.Model):
             blogpost = HelpCenter.objects.get(pk=self.id)
             if blogpost.title != self.title:
                 self.slug = create_helpcenter_slug(tempslug)
+
         else:
             self.slug = create_helpcenter_slug(tempslug)
 
         super(HelpCenter, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return '{title}: {help_hex}'.format(title=str(self.title), help_hex=str(self.help_hex))
 
     def is_deletable_by(self, user):
         if self.user == user or user.is_superuser:

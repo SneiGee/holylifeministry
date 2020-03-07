@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% load filters %}
 
 {% block title %}
-   {{ block.super }} - a place to read, learn and write ideas.
+   {{ block.super }} - {% trans "a place to read, learn and write ideas." %}
 {% endblock %}
 
 {% block content %}
@@ -60,12 +61,10 @@
                                     <a href="#" class="sharebtn"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
                                     <!-- All Share Buttons -->
                                     <div class="all-share-btn d-flex">
-                                        {% with short_url=request.build_absolute_url %}
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{short_url|urlencode}}&t={{lasted.title}}" class="facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="https://twitter.com/intent/tweet?text={{lasted.title}}&url={{short_url}}" class="twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{short_url}}&title={{lasted.title}}&summary={{lasted.content|truncatewords:15}}&source=Holy%20Life%20Ministry" class="linkedin" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://holylifeministry.com{{ request.get_full_path|urlencode }}" class="facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="https://twitter.com/share?url=https://holylifeministry.com&text={{lasted.title}}@HolyLifeMinistry" class="twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://holylifeministry.com" class="linkedin" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                                         <!-- <a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
-                                        {% endwith %}
                                     </div>
                                 </div>
                             </div>
@@ -163,12 +162,9 @@
                                     <a href="#" class="sharebtn"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
                                     <!-- All Share Buttons -->
                                     <div class="all-share-btn d-flex">
-                                        {% with short_url=request.build_absolute_url %}
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{short_url|urlencode}}&t={{lasted.title}}" class="facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="https://twitter.com/intent/tweet?text={{lasted.title}}&url={{short_url}}" class="twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{short_url}}&title={{lasted.title}}&summary={{lasted.content|truncatewords:15}}&source=Holy%20Life%20Ministry" class="linkedin" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                                        <!-- <a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
-                                        {% endwith %}
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://holylifeministry.com{{ request.get_full_path|urlencode }}" class="facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="https://twitter.com/share?url=https://holylifeministry.com&text={{lasted.title}}@HolyLifeMinistry" class="twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://holylifeministry.com" class="linkedin" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -197,6 +193,21 @@
         <div class="row justify-content-center">
             <div class="col-12 col-xl-8">
                 <div class="infinite-container">
+                    <!--  ADS  -->
+                    <!-- <div style="position: relative;height: 50px;line-height: 50px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-format="fluid"
+                             data-ad-layout-key="-50+co-8-dv+uh"
+                             data-ad-client="ca-pub-4116402342121729"
+                             data-ad-slot="6300339720"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div> -->
+                    <!--  End ADs  -->
+
                     {% include 'story/load_data/load_home_story.html' %}
                 </div><!--  end scroll story  --><br>
 

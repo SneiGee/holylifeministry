@@ -406,7 +406,6 @@ class ChristianbaseUserStoryArticleView(TitleContextMixin, CreateView):
             image = MIMEImage(self.blog_story.featured_image.read())
             image.add_header('Content-ID','<{}>'.format(self.blog_story.image_file))
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.attach(image)
             resend_email.send(fail_silently=False)
         # if author has followers. ...
@@ -447,8 +446,6 @@ class ChristianbaseUserStoryArticleView(TitleContextMixin, CreateView):
                     self.mail_subject, to=[self.followers_email]
                 )
                 resend_email.attach_alternative(html_content, "text/html")
-                resend_email.attach(mail_logo_data())
-                resend_email.attach(mail_logo_data2())
                 # resend_email.attach(author_image)
                 # resend_email.attach(followers_image)
                 resend_email.send(fail_silently=False)
@@ -997,7 +994,6 @@ class HolyLifeMinistryAddBibleStudiesView(TitleContextMixin, CreateView):
                         self.mail_subject, to=[self.followers_email]
                     )
                     resend_email.attach_alternative(html_content, "text/html")
-                    resend_email.attach(mail_logo_data())
                     resend_email.attach(image)
                     resend_email.send(fail_silently=False)
             messages.success(self.request, 'Great! Your story is published.')
@@ -1021,7 +1017,13 @@ class HolyLifeMinistryBibleStudiesUpdateView(TitleContextMixin, UserPassesTestMi
     title = _('Edit')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        self.update_story = form.save(commit=False)
+        self.update_story.user = self.request.user
+        self.update_story.updated_on = timezone.now()
+        self.update_story.save()
+        messages.success(self.request, 'Great! Your story is updated.!!!')
+        # data = {'error': False, 'response': 'Great! Your story is updated.',
+        #         'title': self.request.POST['title']}
         return super().form_valid(form)
 
     def test_func(self):
@@ -1228,7 +1230,6 @@ class HolyLifeMinistryAddDevotionView(TitleContextMixin, CreateView):
                         self.mail_subject, to=[self.followers_email]
                     )
                     resend_email.attach_alternative(html_content, "text/html")
-                    resend_email.attach(mail_logo_data())
                     resend_email.attach(image)
                     resend_email.send(fail_silently=False)
             messages.success(self.request, 'Great! Your story is published.')
@@ -1252,12 +1253,18 @@ class HolyLifeMinistryDevotionUpdateView(TitleContextMixin, UserPassesTestMixin,
     title = _('Edit')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        self.update_story = form.save(commit=False)
+        self.update_story.user = self.request.user
+        self.update_story.updated_on = timezone.now()
+        self.update_story.save()
+        messages.success(self.request, 'Great! Your story is updated.!!!')
+        # data = {'error': False, 'response': 'Great! Your story is updated.',
+        #         'title': self.request.POST['title']}
         return super().form_valid(form)
 
     def test_func(self):
-        biblestudies = self.get_object()
-        if self.request.user == biblestudies.user:
+        devotion = self.get_object()
+        if self.request.user == devotion.user:
             return True
         return False
 
@@ -1454,7 +1461,6 @@ class HolyLifeMinistryAddTechView(TitleContextMixin, CreateView):
                         self.mail_subject, to=[self.followers_email]
                     )
                     resend_email.attach_alternative(html_content, "text/html")
-                    resend_email.attach(mail_logo_data())
                     resend_email.attach(image)
                     resend_email.send(fail_silently=False)
             messages.success(self.request, 'Great! Your story is published.')
@@ -1478,12 +1484,18 @@ class HolyLifeMinistryTechUpdateView(TitleContextMixin, UserPassesTestMixin, Upd
     title = _('Edit')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        self.update_story = form.save(commit=False)
+        self.update_story.user = self.request.user
+        self.update_story.updated_on = timezone.now()
+        self.update_story.save()
+        messages.success(self.request, 'Great! Your story is updated.!!!')
+        # data = {'error': False, 'response': 'Great! Your story is updated.',
+        #         'title': self.request.POST['title']}
         return super().form_valid(form)
 
     def test_func(self):
-        biblestudies = self.get_object()
-        if self.request.user == biblestudies.user:
+        tech = self.get_object()
+        if self.request.user == tech.user:
             return True
         return False
 
@@ -1657,8 +1669,8 @@ class HolyLifeMinistryAddQuotesView(TitleContextMixin, CreateView):
                 self.author_story_content = form.cleaned_data.get('content')
                 self.base_name = 'DAILY QUOTE!'
                 self.mail_subject = str(self.base_name) + ' - "' + str(self.author_story_title) + '"!'
-                # image = MIMEImage(self.add_quote.featured_image.read())
-                # image.add_header('Content-ID','<{}>'.format(self.add_quote.image_file))
+                image = MIMEImage(self.add_quote.featured_image.read())
+                image.add_header('Content-ID','<{}>'.format(self.add_quote.image_file))
                 # loop throught all the followers
                 for self.followers_detail in self.followers_id:
                     self.followers_email = self.followers_detail.email  # get followers user email
@@ -1680,8 +1692,7 @@ class HolyLifeMinistryAddQuotesView(TitleContextMixin, CreateView):
                         self.mail_subject, to=[self.followers_email]
                     )
                     resend_email.attach_alternative(html_content, "text/html")
-                    resend_email.attach(mail_logo_data())
-                    # resend_email.attach(image)
+                    resend_email.attach(image)
                     resend_email.send(fail_silently=False)
             messages.success(self.request, 'Great! Your story is published.')
             return super().form_valid(form)
@@ -1704,7 +1715,13 @@ class HolyLifeMinistryQuotesUpdateView(TitleContextMixin, UserPassesTestMixin, U
     title = _('Edit')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        self.update_story = form.save(commit=False)
+        self.update_story.user = self.request.user
+        self.update_story.updated_on = timezone.now()
+        self.update_story.save()
+        messages.success(self.request, 'Great! Your story is updated.!!!')
+        # data = {'error': False, 'response': 'Great! Your story is updated.',
+        #         'title': self.request.POST['title']}
         return super().form_valid(form)
 
     def test_func(self):
@@ -1748,7 +1765,7 @@ class HolyLifeMinistryPolicyView(TitleContextMixin, ListView):
     paginate_by = 4
     template_name = "policy/policy.html"
     context_object_name = 'policy'
-    title = _('HolyLifeMinistry Policy')
+    title = _('Holy Life Ministry Policy')
 
     def get_queryset(self):
         return Policy.objects.filter(is_active=True).annotate(total_comments=Count('commentspolicy')).order_by('-created_on')
@@ -1765,17 +1782,17 @@ class HolyLifeMinistryPolicyDetailView(TitleContextMixin, DetailView):
     """
     model = Policy
     template_name = "policy/policy_detail.html"
+    title = _('Holy Life Ministry Policy')
     context_object_name = 'policy'
-    title = _('HolyLifeMinistry Policy')
 
     def get_context_data(self, *args, **kwargs):
         context = super(HolyLifeMinistryPolicyDetailView, self).get_context_data(*args, **kwargs)
         user = self.object.user
         author = user.first_name if user.first_name else user.username
-        related_storys = Policy.objects.filter(
-            is_active=True,
+        more_storys = Post.objects.filter(
+            status='Published',
             tags__in=self.object.tags.all(),
-        ).annotate(total_post_comments=Count('commentspolicy')).exclude(id=self.object.id).distinct()[:3]
+        ).annotate(total_post_comments=Count('comment')).exclude(id=self.object.id).distinct()[:3]
         policy_like = Policy.objects.filter(id=self.object.id, policy_likes=self.request.user.id)
         comments = CommentsPolicy.objects.filter(policy=self.object.id).order_by('-created_on')
         is_liked = False
@@ -1783,7 +1800,7 @@ class HolyLifeMinistryPolicyDetailView(TitleContextMixin, DetailView):
             is_liked = True
         comment_form = PolicyCommentForm()
         context.update({
-            "related_storys": related_storys,
+            "more_storys": more_storys,
             "author": author,
             "policy_like": policy_like,
             "is_liked": is_liked,
@@ -1947,6 +1964,8 @@ class HolyLifeMinistryAddPolicyView(TitleContextMixin, CreateView):
                     else:
                         story_tag = Tags.objects.create(name=s.strip())
                     self.add_policy.tags.add(story_tag)
+
+            self.add_policy.create_activity(user=self.request.user, content="added")
             # if publisher has followers. ...
             self.followers_id = [self.user for self.user in self.request.user.followers.all()]
             if self.followers_id:
@@ -1964,7 +1983,7 @@ class HolyLifeMinistryAddPolicyView(TitleContextMixin, CreateView):
                 # loop throught all the followers
                 for self.followers_detail in self.followers_id:
                     self.followers_email = self.followers_detail.email  # get followers user email
-                    html_content = render_to_string('email_messages/new_policy/new_policy_to_followers.html', {
+                    html_content = render_to_string('email_messages/policy_story/new_policy_to_followers.html', {
                         'user': self.user,
                         'domain': self.current_site.domain,
                         'myDate': self.myDate,
@@ -1982,7 +2001,6 @@ class HolyLifeMinistryAddPolicyView(TitleContextMixin, CreateView):
                         self.mail_subject, to=[self.followers_email]
                     )
                     resend_email.attach_alternative(html_content, "text/html")
-                    resend_email.attach(mail_logo_data())
                     resend_email.attach(image)
                     resend_email.send(fail_silently=False)
             messages.success(self.request, 'Great! Your story is published.')
@@ -2080,7 +2098,6 @@ class PrayerRequestCreateView(TitleContextMixin, CreateView):
                 self.mail_subject, to=[self.to_email]
             )
             resend_email.attach_alternative(html_content, "text/html")
-            resend_email.attach(mail_logo_data())
             resend_email.send(fail_silently=False)
         messages.success(self.request, 'Great! Your story is published.')
         return HttpResponseRedirect(reverse_lazy('request-prayer'))

@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
+{% load filters %}
 
 {% block title %}
    {% if add_category %}
@@ -49,8 +50,9 @@
                             {% if not add_category %}
                                 <li><a href="{% url 'christianbase_add_category' %}" class="">Go back!</a></li>
                             {% else %}
-                                {% if user_categories_list %}
-                                    {% for user_categories in user_categories_list %}
+                                {% user_categories_list as categories_list %}
+                                {% if categories_list %}
+                                    {% for user_categories in categories_list %}
                                         <li><a href="{% url 'christianbase_update_category' user_categories.slug %}" class="">{{ user_categories.name }}</a></li>
                                     {% endfor %}
                                 {% else %}

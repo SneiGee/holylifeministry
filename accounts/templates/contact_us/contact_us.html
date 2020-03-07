@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   {{ title }} | Holy Life Ministry
+{% endblock %}
+
+{% block content %}
+
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-4">
+    <div class="messages" id="messages">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+    </div><!-- end messages --->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="login-content p-30 box-shadow">
+                    <h5 class="text-center">Contact Us</h5>
+                    <div class="prayer_request">
+                        <form method="post" id="" data-parsley-validate data-url="{{ request.build_absolute_url|safe }}" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+
+                            <button type="submit" class="btn mag-btn mt-30">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--  end col-12  -->
+        </div>
+    </div><!--   end container  -->
+</div>
+<!-- ##### Login Area End ##### -->
+
+
+<!-- ##### Footer Area  ##### -->
+{% include 'includes/footer.html' %}
+<!-- ##### Footer Area End ##### -->
+
+{% endblock %}

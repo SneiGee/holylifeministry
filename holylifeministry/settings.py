@@ -13,8 +13,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import json
 
-with open("/etc/config.json") as config_file:
-    config = json.load(config_file)
+from decouple import config, Csv
+from django.utils.translation import gettext_lazy as _
+
+# with open("/etc/config.json") as config_file:
+#     config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,10 +27,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -70,6 +73,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -105,7 +109,7 @@ WSGI_APPLICATION = 'holylifeministry.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'holylifeministry',
         'USER': 'postgres',
         'PASSWORD': 'sneigee17',
@@ -137,8 +141,104 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
+# Languages we provide translations for, out of the box.
+LANGUAGES = (
+    ('af', _('Afrikaans')),
+    ('ar', _('Arabic')),
+    ('ast', _('Asturian')),
+    ('az', _('Azerbaijani')),
+    ('bg', _('Bulgarian')),
+    ('be', _('Belarusian')),
+    ('bn', _('Bengali')),
+    ('br', _('Breton')),
+    ('bs', _('Bosnian')),
+    ('ca', _('Catalan')),
+    ('cs', _('Czech')),
+    ('cy', _('Welsh')),
+    ('da', _('Danish')),
+    ('de', _('German')),
+    ('dsb', _('Lower Sorbian')),
+    ('el', _('Greek')),
+    ('en', _('English')),
+    ('en-au', _('Australian English')),
+    ('en-gb', _('British English')),
+    ('eo', _('Esperanto')),
+    ('es', _('Spanish')),
+    ('es-ar', _('Argentinian Spanish')),
+    ('es-co', _('Colombian Spanish')),
+    ('es-mx', _('Mexican Spanish')),
+    ('es-ni', _('Nicaraguan Spanish')),
+    ('es-ve', _('Venezuelan Spanish')),
+    ('et', _('Estonian')),
+    ('eu', _('Basque')),
+    ('fa', _('Persian')),
+    ('fi', _('Finnish')),
+    ('fr', _('French')),
+    ('fy', _('Frisian')),
+    ('ga', _('Irish')),
+    ('gd', _('Scottish Gaelic')),
+    ('gl', _('Galician')),
+    ('he', _('Hebrew')),
+    ('hi', _('Hindi')),
+    ('hr', _('Croatian')),
+    ('hsb', _('Upper Sorbian')),
+    ('hu', _('Hungarian')),
+    ('hy', _('Armenian')),
+    ('ia', _('Interlingua')),
+    ('id', _('Indonesian')),
+    ('io', _('Ido')),
+    ('is', _('Icelandic')),
+    ('it', _('Italian')),
+    ('ja', _('Japanese')),
+    ('ka', _('Georgian')),
+    ('kab', _('Kabyle')),
+    ('kk', _('Kazakh')),
+    ('km', _('Khmer')),
+    ('kn', _('Kannada')),
+    ('ko', _('Korean')),
+    ('lb', _('Luxembourgish')),
+    ('lt', _('Lithuanian')),
+    ('lv', _('Latvian')),
+    ('mk', _('Macedonian')),
+    ('ml', _('Malayalam')),
+    ('mn', _('Mongolian')),
+    ('mr', _('Marathi')),
+    ('my', _('Burmese')),
+    ('nb', _('Norwegian Bokmål')),
+    ('ne', _('Nepali')),
+    ('nl', _('Dutch')),
+    ('nn', _('Norwegian Nynorsk')),
+    ('os', _('Ossetic')),
+    ('pa', _('Punjabi')),
+    ('pl', _('Polish')),
+    ('pt', _('Portuguese')),
+    ('pt-br', _('Brazilian Portuguese')),
+    ('ro', _('Romanian')),
+    ('ru', _('Russian')),
+    ('sk', _('Slovak')),
+    ('sl', _('Slovenian')),
+    ('sq', _('Albanian')),
+    ('sr', _('Serbian')),
+    ('sr-latn', _('Serbian Latin')),
+    ('sv', _('Swedish')),
+    ('sw', _('Swahili')),
+    ('ta', _('Tamil')),
+    ('te', _('Telugu')),
+    ('th', _('Thai')),
+    ('tr', _('Turkish')),
+    ('tt', _('Tatar')),
+    ('udm', _('Udmurt')),
+    ('uk', _('Ukrainian')),
+    ('ur', _('Urdu')),
+    ('vi', _('Vietnamese')),
+    ('zh-hans', _('Simplified Chinese')),
+    ('zh-hant', _('Traditional Chinese')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -151,11 +251,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'gallery')
@@ -241,13 +341,21 @@ LOGOUT_URL = 'christian_logout'
 
 
 # EMAIL BACKEND
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = 587
+# SMTP_ENABLED = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = config.get('EMAIL_PASS')
-DEFAULT_FROM_EMAIL = 'Holy Life Ministry <noreply@holylifeministry.com>'
+
+########################
+# OTHER EMAIL SETTINGS #
+########################
+ADMIN_EMAIL = "admin@holylifeministry.com"
+SUPPORT_EMAIL = config('EMAIL_USER')
+DEFAULT_FROM_EMAIL = 'Holy Life Ministry <no-reply@holylifeministry.com>'
+SERVER_EMAIL = ADMIN_EMAIL
 
 # EMAIL_PORT = 465
 # EMAIL_USE_TLS = False

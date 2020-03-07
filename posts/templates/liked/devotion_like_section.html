@@ -2,21 +2,34 @@
 {% load filters %}
 
 <form action="{% url 'devotion_like_post' %}" method="post" id="devotionlike-section">
-    {% csrf_token %}
-    {% if is_liked %}
-        <button type="submit" id="devotion_likes" name="id" value="{{ devotions.id }}" class="liked">
+    {% if request.user.is_authenticated %}
+        {% csrf_token %}
+        {% if is_liked %}
+            <button type="submit" id="devotion_likes" name="id" value="{{ devotions.id }}" class="liked">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            </button>
+        {% else %}
+            <button type="submit" id="devotion_likes" name="id" value="{{ devotions.id }}">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            </button>
+        {% endif %}
+        {% if devotions.total_likes %}
+            <a href="#" class="total" data-toggle="modal" data-target="#SeeWhoLikeThisModal">
+                {{ devotions.total_likes|human_format }} like{{ devotions.total_likes|pluralize }}
+            </a>
+        {% else %}
+            <a>like</a>
+        {% endif %}
+    {% else %}
+        <button type="button" data-toggle="modal" data-target="#LoginModal">
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
         </button>
-    {% else %}
-        <button type="submit" id="devotion_likes" name="id" value="{{ devotions.id }}">
-            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-        </button>
-    {% endif %}
-    {% if devotions.total_likes %}
-        <a href="#" class="total" data-toggle="modal" data-target="#SeeWhoLikeThisModal">
-            {{ devotions.total_likes|human_format }} like{{ devotions.total_likes|pluralize }}
-        </a>
-    {% else %}
-        <a>like</a>
+        {% if devotions.total_likes %}
+            <a href="#" class="total" data-toggle="modal" data-target="#LoginModal">
+                {{ devotions.total_likes|human_format }} like{{ devotions.total_likes|pluralize }}
+            </a>
+        {% else %}
+            <a>like</a>
+        {% endif %}
     {% endif %}
 </form>

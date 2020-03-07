@@ -35,23 +35,6 @@
         {% endif %}
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="single-video-area bg-white mb-30 box-shadow">
-                   <img src="{{ policy.featured_image.url }}" class="iframe" alt="Story Banner">
-                    <!-- Video Meta Data -->
-                    <div class="video-meta-data d-flex align-items-center justify-content-between">
-                        <h6 class="total-views"><i class="fa fa-eye" aria-hidden="true"></i> {{ policy.hit_count|human_format }} Views</h6>
-                        <div class="like-dislike d-flex align-items-center">
-                            {% include 'liked/like_section.html' %}
-                            <p>
-                                <i class="fa fa-comments-o" aria-hidden="true"></i> {{ comments.count|human_format }} Comment{{ comments.count|pluralize }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row justify-content-center">
             <!-- Post Details Content Area -->
@@ -82,8 +65,16 @@
                         <h4 class="post-title">
                             {{ policy.title }}
                         </h4>
+                        <!-- Post Meta -->
+                        <div class="post-meta-2">
+                            <a><i class="fa fa-eye" aria-hidden="true"></i> {{ policy.hit_count|human_format }} Views</a>
+                            <!--  bible studies like section    --->
+                            {% include 'liked/policy_like_section.html' %}
+                            <!--  end bible like section  -->
+                            <a><i class="fa fa-comments-o" aria-hidden="true"></i> {{ comments.count|human_format }}</a>
+                        </div>
                         <!--  Story content  -->
-                        <p>
+                        <p class="text-content">
                             {{ policy.content|safe }}
                         </p>
 
@@ -98,9 +89,16 @@
 
                         <!-- Like Dislike Share -->
                         <div class="like-dislike-share">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://holylifeministry.com{{ request.get_full_path|urlencode }}" class="facebook" target="_blank">
+                                <i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook
+                            </a>
+                            <a href="https://twitter.com/share?url=https://holylifeministry.com&text={{policy.title}}@HolyLifeMinistry" class="twitter" target="_blank">
+                                <i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter
+                            </a>
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://holylifeministry.com" class="linkedin" target="_blank">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i> Share on Linkedin
+                            </a>
 
-                            <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
                             <div class="share">
                                 {% if not request.user == policy.user %}
                                     {% if request.user.is_authenticated %}
@@ -110,6 +108,39 @@
                                 <!-- <span>Share</span> -->
                             </div>
                         </div>
+                        {% if policy.written_by %}
+                        <div class="writtenBy">
+                            <h5> Written by</h5>
+                        </div>
+                        <!-- Post Author -->
+                        <div class="post-author d-flex align-items-center">
+                            <div class="post-author-thumb">
+                                <img src="
+                                {% if policy.written_by.user.profile.image %}
+                                   {{ policy.written_by.user.profile.image.url }}
+                                {% else %}
+                                   /static/images/default.png
+                                {% endif %}
+                                " alt="{{ policy.written_by.user.get_full_name }}">
+                            </div>
+                            <div class="post-author-desc pl-4">
+                                <!-- <a href="#" class="">Written by</a> -->
+                                <div class="author-name">
+                                    <a href="{% url 'christianbase_userprofile' policy.written_by.user.username %}" class="">{{ policy.written_by.user.get_full_name }}</a>
+                                    <a href="{% url 'christianbase_userprofile' policy.written_by.user.username %}" class="btn btn-secondary btn-sm author-follow-btn ml-1">View Profile</a>
+
+                                </div>
+                                <p>
+                                    {% if policy.written_by.user.profile.bio %}
+                                       {{ policy.written_by.user.profile.bio }}
+                                    {% else %}
+                                       New to HolyLifeMinisry
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- End Post Author -->
+                        {% endif %}
 
                         <!-- Post Author -->
                         <div class="post-author d-flex align-items-center">
@@ -151,16 +182,16 @@
                 </div>
                 {% endif %}
 
-                {% if related_storys %}
+                {% if more_storys %}
                     <!-- Related Post Area -->
                     <div class="related-post-area bg-white mb-30 px-30 pt-30 pb-0 box-shadow">
                         <!-- Section Title -->
                         <div class="section-heading">
-                            <h5>Related Post</h5>
+                            <h5>More from HLM</h5>
                         </div>
 
                         <div class="row">
-                            {% for story in related_storys %}
+                            {% for story in more_storys %}
                                 <!-- Single Blog Post -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="single-blog-post style-4 mb-30">
@@ -206,6 +237,43 @@
 <!--  Post Detail Area End --  -->
 
 
+<!-- See Who Like This  Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="SeeWhoLikeThisModalModalTitle">Sign In
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="ClikLoginORSignUp">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                                Login
+                            </a>
+
+
+                            <a href="{% url 'create-account' %}" class="btn btn-secondary btn-sm SigUp">
+                                Create account
+                            </a>
+                            <hr>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
 
 <!-- See Who Like This  Modal -->
 <div class="modal fade" id="SeeWhoLikeThisModal" tabindex="-1" role="dialog" aria-labelledby="SeeWhoLikeThisModalTitle" aria-hidden="true">
@@ -221,7 +289,7 @@
                             </button>
                         </p>
                         <div class="see_users_likes">
-                            {% for user_like in policy.likes.all %}
+                            {% for user_like in policy.policy_likes.all %}
                                 <div class="media">
                                     <a class="media-left" href="{% url 'christianbase_userprofile' user_like.username %}">
                                         <img class="media-object" src="

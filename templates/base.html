@@ -1,7 +1,8 @@
+{% load i18n %}
 {% load static %}
 {% load filters %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Holy Life Ministry is an online publishing platform, where words matter, smart voices and original ideas take center stage.">
@@ -11,7 +12,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>{% block title %}Holy Life Ministry{% endblock %}</title>
+    <title>{% block title %}{% trans "Holy Life Ministry" %}{% endblock %}</title>
 
     <!-- FAVICONS  -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/icon_144.png' %}">
@@ -32,6 +33,10 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
 
     <link rel="stylesheet" href="{% static 'js/plugins/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}" />
+
+    <!-- Google Adsense -->
+    <script data-ad-client="ca-pub-4116402342121729" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Google Adsense -->
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -109,7 +114,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script> -->
 
-<!-- Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPC4X49"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
@@ -218,6 +223,17 @@
 
     {% block javascript %}
     {% endblock %}
+
+    <script type="text/javascript">
+        amzn_assoc_ad_type = "link_enhancement_widget";
+        amzn_assoc_tracking_id = "716970-20";
+        amzn_assoc_linkid = "d12f1312987102f45864ca05acea36fd";
+        amzn_assoc_placement = "";
+        amzn_assoc_marketplace = "amazon";
+        amzn_assoc_region = "US";
+    </script>
+    <script src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&MarketPlace=US">
+    </script>
 
 </body>
 </html>

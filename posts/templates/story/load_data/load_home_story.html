@@ -1,5 +1,20 @@
 {% load filters %}
 
+<!-- <div class="archive-posts-area bg-white p-30 mb-30 box-shadow">
+    <div class="single-catagory-post d-flex flex-wrap">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="fluid"
+             data-ad-layout-key="-50+co-8-dv+uh"
+             data-ad-client="ca-pub-4116402342121729"
+             data-ad-slot="6300339720"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div> -->
+
 {% if my_authors_story %}
     {% for authors_story in my_authors_story %}
         <div class="infinite-item archive-posts-area bg-white p-30 mb-30 box-shadow">
@@ -37,7 +52,9 @@
                     </p>
                 </div>
             </div>
+            <!--  end feed  -->
         </div>
+
     {% endfor %}
 {% else %}
     <p class="no-story-yet">

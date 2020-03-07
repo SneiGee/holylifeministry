@@ -122,9 +122,14 @@ def create_tag_slug(tempslug):
         except ObjectDoesNotExist:
             return tempslug
 
+def GenerateOTP():
+    import random,string
+    allowed_chars = ''.join((string.ascii_letters, string.digits))
+    return ''.join(random.choice(allowed_chars) for _ in range(20))
+
 
 class Post(models.Model):
-    story_code = models.CharField(max_length=20, unique=True, editable=False, default=uuid.uuid4().hex[:20])
+    story_code = models.CharField(max_length=20, unique=True, editable=False, default=GenerateOTP)
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -276,10 +281,19 @@ class PostHistory(models.Model):
         )
 
 
+class WrittenBy(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    is_approved = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
+
 class BibleStudies(models.Model):
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(WrittenBy, on_delete=models.CASCADE, blank=True, null=True)
     content = RichTextUploadingField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
@@ -288,6 +302,7 @@ class BibleStudies(models.Model):
         upload_to='biblestudies_photos/%Y/%m/%d/', blank=True, null=True, validators=[validate_Image_extension],
         help_text=_('Include a high-quality image in your story to make it more inviting to readers.'),
     )
+    bookmarks_bible = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='bookmarks_bible', blank=True)
     restrict_comment = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -340,6 +355,7 @@ class Devotion(models.Model):
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(WrittenBy, on_delete=models.CASCADE, blank=True, null=True)
     content = RichTextUploadingField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
@@ -348,6 +364,7 @@ class Devotion(models.Model):
         upload_to='devotion_photos/%Y/%m/%d/', blank=True, null=True, validators=[validate_Image_extension],
         help_text=_('Include a high-quality image in your story to make it more inviting to readers.'),
     )
+    bookmarks_devotion = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='bookmarks_devotion', blank=True)
     restrict_comment = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -400,6 +417,7 @@ class Tech(models.Model):
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(WrittenBy, on_delete=models.CASCADE, blank=True, null=True)
     content = RichTextUploadingField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
@@ -408,6 +426,7 @@ class Tech(models.Model):
         upload_to='tech_photos/%Y/%m/%d/', blank=True, null=True, validators=[validate_Image_extension],
         help_text=_('Include a high-quality image in your story to make it more inviting to readers.'),
     )
+    bookmarks_tech = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='bookmarks_tech', blank=True)
     restrict_comment = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -460,6 +479,7 @@ class Quotes(models.Model):
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(WrittenBy, on_delete=models.CASCADE, blank=True, null=True)
     content = RichTextUploadingField(blank=True, null=True)
     quotes_likes = models.ManyToManyField(User, related_name='quotes_likes', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -468,6 +488,7 @@ class Quotes(models.Model):
         upload_to='quotes_photos/%Y/%m/%d/', blank=True, null=True, validators=[validate_Image_extension],
         help_text=_('Include a high-quality image in your story to make it more inviting to readers.'),
     )
+    bookmark_quote = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='bookmark_quote', blank=True)
     restrict_comment = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -517,16 +538,13 @@ def create_quotes_slug(tempslug):
 
 
 class Policy(models.Model):
-    policy_hex = models.CharField(max_length=20, unique=True, editable=False, default=uuid.uuid4().hex[:20])
+    policy_hex = models.CharField(max_length=20, unique=True, editable=False, default=GenerateOTP)
     title = models.CharField(max_length=500, unique=True)
     slug = models.SlugField(default=slugify(title), max_length=500, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(WrittenBy, on_delete=models.CASCADE, blank=True, null=True)
     content = RichTextUploadingField(blank=True, null=True)
     tags = models.ManyToManyField(Tags, related_name='tags')
-    featured_image = models.ImageField(
-        upload_to='policy_photos/%Y/%m/%d/', blank=True, null=True, validators=[validate_Image_extension],
-        help_text=_('Include a high-quality image in your story to make it more inviting to readers.'),
-    )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     policy_likes = models.ManyToManyField(User, related_name='policy_likes', blank=True)
@@ -586,7 +604,7 @@ def create_policy_slug(tempslug):
 
 
 class PrayerRequest(models.Model):
-    prayerrequest_hex = models.CharField(max_length=22, unique=True, editable=False, default=uuid.uuid4().hex[:22])
+    prayerrequest_hex = models.CharField(max_length=22, unique=True, editable=False, default=GenerateOTP)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     area = models.CharField(_('Please Pray For Me In The Following Area'), max_length=50, choices=REQUEST_CHOICE)
     message = models.TextField()

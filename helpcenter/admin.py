@@ -17,7 +17,7 @@ class HelpCenterAdmin(admin.ModelAdmin):
     fieldsets = (
         (_('Help Center'), {'fields': ('section', 'title', 'content', 'is_active')}),
     )
-    list_display = ('section', 'title', 'is_active')
+    list_display = ('section', 'title', 'help_hex', 'is_active')
     list_filter = ('title', 'is_active')
     search_fields = ('section', 'title', 'is_active')
 

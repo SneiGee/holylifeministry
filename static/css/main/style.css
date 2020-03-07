@@ -2334,6 +2334,7 @@ margin-right: 20px;
   margin-bottom: 15px;
   display: block;
 }
+
 .post-details-content .blog-thumb img {
   width: 100%;
   max-height: 350px;
@@ -2363,7 +2364,7 @@ margin-right: 20px;
   /*font-style: oblique;*/
   font-weight: 400px;
   font-size: 17px;
-  color: #000;
+  color: #000 !important;
 }
 .post-details-content .post-meta-2 {
   position: relative;
@@ -2518,6 +2519,20 @@ pre code {
   color: #ed3974;
 }
 
+.writtenBy {
+  position: relative;
+  margin-top: 20px;
+}
+.writtenBy h5 {
+  /*display: block;*/
+  margin-top: 10px;
+  margin-bottom: -23px;
+  margin-left: 105px;
+  font-size: 17px;
+  font-family: serif;
+  text-transform: uppercase;
+}
+
 .post-author {
   position: relative;
   z-index: 1;
@@ -2541,6 +2556,9 @@ pre code {
     max-width: 60px;
     width: 60px;
     height: 60px;
+  }
+  .writtenBy h5  {
+    margin-left: 80px;
   }
 }
 .post-author .post-author-thumb img {
@@ -2927,6 +2945,22 @@ pre code {
 .user-report-modal p .report i {
   margin-top: 10px;
   float: right;
+}
+
+.who_users_like_modal div.ClikLoginORSignUp {
+  position: relative;
+  padding: 5px;
+  text-align: center;
+}
+.who_users_like_modal div.ClikLoginORSignUp a {
+  /*width: 100px;*/
+}
+.who_users_like_modal div.ClikLoginORSignUp a.SigUp {
+  /*text-align: center;*/
+  /*width: 200px;*/
+  /*display: inline-block;*/
+  /*float: right;*/
+  margin-left: 100px;
 }
 
 .who_users_like_modal div.see_users_likes {
@@ -3401,6 +3435,9 @@ pre code {
 .comment_area {
   border-bottom: 1px solid #ebebeb;
   padding-bottom: 50px;
+}
+.comment_area ol {
+  list-style: none;
 }
 .comment_area .comment-content .comment-author {
   -webkit-box-flex: 0;

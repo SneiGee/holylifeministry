@@ -1,5 +1,6 @@
 import os
 import json
+from decouple import config, Csv
 from django import template
 from django.db.models import Count
 
@@ -7,9 +8,6 @@ from accounts.models import User
 from ..models import Category, Post, BibleStudies, Devotion
 
 register = template.Library()
-
-with open("/etc/config.json") as config_file:
-    config = json.load(config_file)
 
 @register.filter
 def human_format(num): # format long number like 1000 to 1k....
@@ -48,4 +46,4 @@ def who_to_follow(context, count=1):
 
 @register.simple_tag
 def google_analytics_id():
-    return config.get("GOOGLE_ANALYTICS_ID")
+    return config("GOOGLE_ANALYTICS_ID")

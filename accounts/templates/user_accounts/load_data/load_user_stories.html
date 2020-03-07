@@ -7,6 +7,7 @@
 
             <!-- Single Topic.Catagory Story -->
             <div class="single-catagory-post d-flex flex-wrap">
+                {% if my_story.featured_image %}
                 <!-- Thumbnail -->
                 <div class="post-thumbnail bg-img">
                     <a href="{{ my_story.get_absolute_url }}">
@@ -14,6 +15,7 @@
                     </a>
                     <!-- <a href="video-post.html" class="video-play"><i class="fa fa-play"></i></a> -->
                 </div>
+                {% endif %}
 
                 <!-- Post Contetnt -->
                 <div class="post-content">

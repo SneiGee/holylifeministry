@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="footer-widget">
                     <!-- Logo -->
-                    <a href="index.html" class="foo-logo">
+                    <a href="{% url 'home' %}" class="foo-logo">
                         <img src="{% static 'images/logo_text1.png' %}" alt="Holy Life Ministry">
                     </a>
                     <p>
@@ -16,14 +16,14 @@
                         relationship with His Son, Jesus Christ. This purpose is lived out first within our own families
                         then extended, in love, to an increasingly broken world that desperately needs Him. -->
                         With the power of the network, different ways to engage with stories, and the ability to follow your
-                        favorite topics, and writers, you’re in control of your reading experience. So the stories
+                        favourite topics, and writers, you’re in control of your reading experience. So the stories
                         that matter most to you are always at your fingertips.
                     <div class="footer-social-info">
-                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-                        <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/holyministry18/" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/channel/UCa3tn8jGQuzbSjOdXPcW5vQ/videos?view_as=subscriber" class="google-plus" target="_blank"><i class="fa fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/official_holylifeministry/" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+                        <a href="https://twitter.com/officialholyli1" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/company/holy-life-ministry/" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -94,11 +94,12 @@
                 <div class="col-12 col-sm-6">
                     <nav class="footer-nav">
                         <ul>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="https://holylifeministry.com/holylifeministry2020/">Blog</a></li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'help_homepage' %}">Help</a></li>
-                            <li><a href="#">Terms</a></li>
-                            <li><a href="#">Privacy</a></li>
+                            <li><a href="https://holylifeministry.com/policy/holy-life-ministry-terms-and-conditions-293bb2fb727b4a02a389/">Terms</a></li>
+                            <li><a href="https://holylifeministry.com/policy/holy-life-ministry-privacy-policy-ed6c880fd56f463fb6e1/">Privacy</a></li>
+                            <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
                         </ul>
                     </nav>
                 </div>

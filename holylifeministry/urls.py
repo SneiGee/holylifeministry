@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.conf.urls import (
     handler400, handler403, handler404, handler500,
 )
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +33,8 @@ urlpatterns = [
 
     # -----    HOLY LIFE MINISTRY ABOUT )
     path('about/', hit_count(help_view.AboutPageView.as_view()), name='about'),
+    # -----    HOLY LIFE MINISTRY CONTACT US )
+    path('contact-us/', hit_count(views.ContactUsCreateView.as_view()), name='contact-us'),
 
     # -----    HOLY LIFE MINISTRY STORIES URL.. .and more )
     path('help/', include('helpcenter.urls')),
@@ -73,6 +77,11 @@ urlpatterns = [
 
     # -- Super Admin
     path('base/super/secure/', admin.site.urls),
+
+    path(
+        "ads.txt",
+        RedirectView.as_view(url=staticfiles_storage.url("ads.txt")),
+    ),
 
 ]
 

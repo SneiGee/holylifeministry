@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
-from .models import Category, Tags, Post, BibleStudies, Devotion, Tech, Quotes, Policy, PrayerRequest
+from .models import Category, Tags, Post, WrittenBy, BibleStudies, Devotion, Tech, Quotes, Policy, PrayerRequest
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -30,49 +30,58 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'user', 'category', 'status')
 
 
+class WrittenAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (_('Featured Writer'), {'fields': ('user', 'is_approved')}),
+    )
+    list_display = ('user', 'is_approved', 'created_on')
+    list_filter = ('user', 'is_approved')
+    search_fields = ('user', 'is_approved')
+
+
 class BibleStudiesAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Create Bible Studies'), {'fields': ('title', 'featured_image', 'content', 'user')}),
+        (_('Create Bible Studies'), {'fields': ('title', 'featured_image', 'content', 'user', 'written_by')}),
     )
-    list_display = ('title', 'slug', 'user', 'created_on')
+    list_display = ('title', 'slug', 'user', 'written_by', 'created_on')
     list_filter = ('user', 'created_on')
-    search_fields = ('title', 'user', 'created_on')
+    search_fields = ('title', 'user', 'written_by', 'created_on')
 
 
 class DevotionAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Create Devotion'), {'fields': ('title', 'featured_image', 'content', 'user')}),
+        (_('Create Devotion'), {'fields': ('title', 'featured_image', 'content', 'user', 'written_by')}),
     )
-    list_display = ('title', 'slug', 'user', 'created_on')
+    list_display = ('title', 'slug', 'user', 'written_by', 'created_on')
     list_filter = ('user', 'created_on')
-    search_fields = ('title', 'user', 'created_on')
+    search_fields = ('title', 'user', 'written_by', 'created_on')
 
 
 class TechAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Add New Tech'), {'fields': ('title', 'featured_image', 'content', 'user')}),
+        (_('Add New Tech'), {'fields': ('title', 'featured_image', 'content', 'user', 'written_by')}),
     )
-    list_display = ('title', 'slug', 'user', 'created_on')
+    list_display = ('title', 'slug', 'user', 'written_by', 'created_on')
     list_filter = ('user', 'created_on')
-    search_fields = ('title', 'user', 'created_on')
+    search_fields = ('title', 'user', 'written_by', 'created_on')
 
 
 class QuotesAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Add New Quote'), {'fields': ('title', 'content', 'featured_image', 'user')}),
+        (_('Add New Quote'), {'fields': ('title', 'content', 'featured_image', 'user', 'written_by')}),
     )
-    list_display = ('title', 'slug', 'user', 'created_on')
+    list_display = ('title', 'slug', 'user', 'written_by', 'created_on')
     list_filter = ('user', 'created_on')
-    search_fields = ('title', 'user', 'created_on')
+    search_fields = ('title', 'user', 'written_by', 'created_on')
 
 
 class PrivacyAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Add New Privacy'), {'fields': ('title', 'featured_image', 'content', 'tags', 'user')}),
+        (_('Add New Privacy'), {'fields': ('title', 'content', 'tags', 'user', 'written_by')}),
     )
-    list_display = ('title', 'slug', 'user', 'created_on')
+    list_display = ('title', 'slug', 'user', 'written_by', 'created_on')
     list_filter = ('user', 'created_on')
-    search_fields = ('title', 'user', 'created_on')
+    search_fields = ('title', 'user', 'written_by', 'created_on')
 
 
 class PrayerRequestAdmin(admin.ModelAdmin):
@@ -87,6 +96,7 @@ class PrayerRequestAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tags, TagsAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(WrittenBy, WrittenAdmin)
 admin.site.register(BibleStudies, BibleStudiesAdmin)
 admin.site.register(Devotion, DevotionAdmin)
 admin.site.register(Tech, TechAdmin)

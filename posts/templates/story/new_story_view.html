@@ -250,6 +250,44 @@
 
 
 <!-- See Who Like This  Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalTitle" aria-hidden="true">
+    <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body who_users_like_modal">
+                    <form>
+                        <p id="SeeWhoLikeThisModalModalTitle">Sign In
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </p>
+                        <div class="ClikLoginORSignUp">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                                Sign In
+                            </a>
+
+
+                            <a href="{% url 'create-account' %}" class="btn btn-secondary btn-sm SigUp">
+                                Create account
+                            </a>
+                            <hr>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer profile-modal-footer">
+                    <a href="#" data-dismiss="modal">Close</a>
+                </div> -->
+            </div>
+            <!--   end modal-content  -->
+        </div>
+    </div>
+    <!--   end modal-dialog  -->
+</div>
+<!--  end modal  -->
+
+
+<!-- See Who Like This  Modal -->
 <div class="modal fade" id="SeeWhoLikeThisModal" tabindex="-1" role="dialog" aria-labelledby="SeeWhoLikeThisModalTitle" aria-hidden="true">
     <!-- users who like this .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
